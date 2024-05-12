@@ -4,6 +4,7 @@ import MeetAgents from "./MeetAgents";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Slider from "./Slider/Slider";
 import FAQ from "./FAQ";
+import Features from "./Features";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -53,6 +54,9 @@ const Home = () => {
 
       <div className="mt-5 mb-10 ">
         <Slider />
+      </div>
+      <div>
+        <Features />
       </div>
 
       <div className="mt-5 mb-10 lg:mt-10 lg:mx-20">

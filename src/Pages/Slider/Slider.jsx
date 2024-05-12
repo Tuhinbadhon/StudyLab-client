@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import "./Slider.css";
 
 // import required modules
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
 const Slider = () => {
   const [showArrows, setShowArrows] = useState(true);
@@ -27,21 +27,26 @@ const Slider = () => {
   }, []);
 
   return (
-    <div
-      data-aos="fade-up"
-      data-aos-duration="1000"
-      className="max-[450px]:p-3 md:p-3"
-    >
-      <Swiper
+    <div data-aos="fade-up" data-aos-duration="1000" className="">
+      <img
+        className="z-[1]"
+        src="https://i.ibb.co/vdQXsSK/banner1.jpg"
+        alt=""
+      />
+      {/* <Swiper
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
         pagination={{
           clickable: true,
         }}
         navigation={showArrows} // Toggle navigation based on showArrows state
-        modules={[Pagination, Navigation]}
-        className="mySwiper lg:max-w-full md:max-w-screen-md sm:max-w-screen-sm rounded-xl"
+        modules={[Pagination, Navigation, Autoplay]}
+        className="mySwiper lg:max-w-full mr-0 md:max-w-screen-md sm:max-w-screen-sm rounded-xl"
       >
         <SwiperSlide>
           <img
@@ -59,7 +64,7 @@ const Slider = () => {
         <SwiperSlide>
           <img src="https://i.ibb.co/BftV33d/banner2.jpg" alt="" />{" "}
         </SwiperSlide>
-      </Swiper>
+      </Swiper> */}
     </div>
   );
 };
