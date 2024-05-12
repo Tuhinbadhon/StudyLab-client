@@ -1,6 +1,6 @@
 # STUDY LAB
 
-# live link:
+# live link: https://bdstudylab.netlify.app
 
 # Features:
 
