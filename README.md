@@ -1,6 +1,6 @@
-# Website name: Study Lab
+# STUDY LAB
 
-# Website live link:
+# live link:
 
 # Features:
 
