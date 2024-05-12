@@ -13,26 +13,25 @@ const MeetAgents = () => {
         <h1
           data-aos="fade-left"
           data-aos-duration="1000"
-          className="text-lg font-medium text-indigo-600 lg:text-3xl lg:font-bold  mt-6 lg:mt-20 "
+          className="text-lg font-medium lg:text-3xl lg:font-bold  mt-6 lg:mt-20 "
         >
-          Meet Our Top Artist
+          Our Professional Teachers
         </h1>
         <p
           data-aos="fade-up"
           data-aos-duration="1000"
           className="text-sm lg:text-lg font-normal mt-6 mb-6"
         >
-          Begin your artistic journey with our team of dedicated craft
-          enthusiasts, ready to guide you through every step of the creative
-          process. Meet our seasoned artisans today and let us unlock the doors
-          to your crafting dreams.
+          Our team of experienced educators is dedicated to helping you succeed
+          academically and professional teachers is committed to providing
+          top-quality education and support.
         </p>
       </div>
 
       {/* card section  */}
       <div className="grid sm:grid-cols-1 md:grid-cols-3 md:p-4 lg:grid-cols-3 gap-4 lg:gap-6 justify-center">
         {/* agent 1 */}
-        <div className="  hover:scale-110 ease-in duration-300  flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-50 dark:text-gray-800">
+        <div className="  hover:scale-110 ease-in duration-300  flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl  dark:bg-gray-50 dark:text-gray-800">
           <img
             src="https://i.ibb.co/xjsyCLx/leo.webp"
             alt=""
@@ -44,7 +43,7 @@ const MeetAgents = () => {
                 Leonardo DiCaprio
               </h2>
               <p className="px-5 text-xs sm:text-base dark:text-gray-600">
-                Cartoonists
+                Expert in English
               </p>
             </div>
             <Link to="agent/1">
@@ -103,7 +102,7 @@ const MeetAgents = () => {
                 Kate Winslet
               </h2>
               <p className="px-5 text-xs sm:text-base dark:text-gray-600">
-                Landscape Artist
+                Expert Developer
               </p>
             </div>
             <Link to="agent/2">
@@ -159,7 +158,7 @@ const MeetAgents = () => {
             <div className="my-2 space-y-1">
               <h2 className="text-xl font-semibold sm:text-2xl">Johnny Depp</h2>
               <p className="px-5 text-xs sm:text-base dark:text-gray-600">
-                Ceramic artist
+                CEO of Study Lab
               </p>
             </div>
             <Link to="agent/3">
