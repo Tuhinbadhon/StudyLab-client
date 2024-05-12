@@ -52,7 +52,7 @@ const Home = () => {
         </Helmet>
       </HelmetProvider>
 
-      <div className="mt-5 mb-10 ">
+      <div className="mt-5  mb-10 ">
         <Slider />
       </div>
       <div>
