@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import MeetAgents from "./MeetAgents";
-import FAQ from "./FAQ";
+
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Slider from "./Slider/Slider";
+import FAQ from "./FAQ";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);

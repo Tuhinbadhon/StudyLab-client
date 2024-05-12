@@ -54,7 +54,7 @@ const FAQ = () => {
               href="#"
               className="hover:scale-125 hover:text-indigo-500 flex items-center justify-center p-2 border border-indigo-600 rounded-lg"
             >
-              Billing
+              Registration
             </a>
             <a
               rel="noopener noreferrer"
@@ -89,14 +89,14 @@ const FAQ = () => {
               href="#"
               className="hover:scale-125 hover:text-indigo-500 flex items-center justify-center p-2 border border-indigo-600 rounded-lg"
             >
-              My orders
+              Assignment
             </a>
             <a
               rel="noopener noreferrer"
               href="#"
               className="hover:scale-125 hover:text-indigo-500 flex items-center justify-center p-2 border border-indigo-600 rounded-lg"
             >
-              Enterprise
+              Collaboration
             </a>
             <a
               rel="noopener noreferrer"
@@ -110,7 +110,7 @@ const FAQ = () => {
               href="#"
               className="hover:scale-125 hover:text-indigo-500 flex items-center justify-center p-2 border border-indigo-600 rounded-lg"
             >
-              Developers
+              Progress
             </a>
             {/* Add three more FAQ links */}
             <a
@@ -125,14 +125,14 @@ const FAQ = () => {
               href="#"
               className="hover:scale-125 hover:text-indigo-500 flex items-center justify-center p-2 border border-indigo-600 rounded-lg"
             >
-              Refund Policy
+              Security
             </a>
             <a
               rel="noopener noreferrer"
               href="#"
               className="hover:scale-125 hover:text-indigo-500 flex items-center justify-center p-2 border border-indigo-600 rounded-lg"
             >
-              Shipping Information
+              Integration
             </a>
           </div>
         </div>
