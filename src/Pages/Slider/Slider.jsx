@@ -1,36 +1,40 @@
 import React, { useState, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+// import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+// // Import Swiper styles
+// import "swiper/css";
+// import "swiper/css/pagination";
+// import "swiper/css/navigation";
 
-import "./Slider.css";
+// import "./Slider.css";
 
-// import required modules
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
+// // import required modules
+// import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
 const Slider = () => {
-  const [showArrows, setShowArrows] = useState(true);
+  // const [showArrows, setShowArrows] = useState(true);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setShowArrows(window.innerWidth >= 640); // Adjust this value according to your desired breakpoint
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setShowArrows(window.innerWidth >= 640); // Adjust this value according to your desired breakpoint
+  //   };
 
-    handleResize(); // Initial check
+  //   handleResize(); // Initial check
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   return (
-    <div data-aos="fade-up" data-aos-duration="1000" className="">
-      <div className="relative">
+    <div
+      data-aos="fade-up"
+      data-aos-duration="1000"
+      className="flex justify-center items-center"
+    >
+      <div className="relative ">
         <img className="" src="https://i.ibb.co/vdQXsSK/banner1.jpg" alt="" />
-        <div className="absolute h-full flex left-0 top-0 items-center justify-center bg-gradient-to-r from-black to-[rgba(21,21,21,0)] max-[450px]:hidden">
+        <div className="absolute  h-full flex left-0 top-0 items-center justify-center bg-gradient-to-r from-black to-[rgba(21,21,21,0)] max-[450px]:hidden">
           <div className="space-y-7 w-1/2 text-white text-center ">
             <h2 className="font-bold lg:text-5xl md:text-2xl ">
               Your Child is Our Asset
