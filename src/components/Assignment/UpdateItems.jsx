@@ -38,13 +38,16 @@ const UpdateItems = () => {
     const userEmail = user.email;
     const userImg = user.photoURL;
 
+    // Format dueDate to send only date without time
+    const formattedDueDate = dueDate.toISOString().split("T")[0];
+
     const updatedItem = {
       image,
       item_title,
       category,
       description,
       marks,
-      dueDate,
+      dueDate: formattedDueDate,
       userName,
       userEmail,
       userImg,
@@ -141,13 +144,13 @@ const UpdateItems = () => {
         <div className="md:flex md:mb-6">
           <div className="form-control md:w-1/2">
             <label className="label">
-              <span className="label-text"> Description</span>
+              <span className="label-text">Description</span>
             </label>
             <label className="input-group">
-              <input
+              <textarea
                 type="text"
                 placeholder="Description"
-                className="input input-bordered w-full"
+                className="textarea textarea-bordered w-full"
                 name="description"
                 id=""
                 defaultValue={description}
@@ -184,7 +187,6 @@ const UpdateItems = () => {
                 className="input input-bordered w-full"
                 dateFormat="dd/MM/yyyy"
                 placeholderText="Select due date"
-                defaultValue={dueDate} // Set defaultValue
                 required
               />
             </div>

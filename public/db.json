@@ -1,69 +1,62 @@
 [
   {
     "id": 1,
-    "image": "https://i.ibb.co/1GvcgJr/image1.png",
-    "title": "Introduction to Biology",
-    "description": "Learn the fundamentals of biology including cell structure, genetics, and ecology."
+    "title": "Video Conferencing",
+    "description": "Allows users to conduct live video conferences for group study sessions.",
+    "image": "https://i.ibb.co/tDtYC20/02-Vdaft-Dvo0-TZx-Kv-Lhj00h-F-1.webp"
   },
   {
     "id": 2,
-    "image": "https://i.ibb.co/zbF8JWV/image2.jpg",
-    "title": "Algebra Basics",
-    "description": "Get started with algebra by learning about equations, inequalities, and functions."
+    "title": "Screen Sharing",
+    "description": "Enables users to share their screens during study sessions for collaborative learning.",
+    "image": "https://i.ibb.co/pdXkFws/banner-img-2x.png"
   },
   {
     "id": 3,
-    "image": "https://i.ibb.co/r5f9X3f/image3.webp",
-    "title": "English Literature Classics",
-    "description": "Explore classic literature works from Shakespeare to Jane Austen and beyond."
+    "title": "Chat",
+    "description": "Provides a chat feature for users to communicate in real-time during study sessions.",
+    "image": "https://i.ibb.co/Zxs5tDj/chat.jpg"
   },
   {
     "id": 4,
-    "image": "https://i.ibb.co/g7hbB5S/image4.jpg",
-    "title": "Introduction to Programming",
-    "description": "Learn the basics of programming with languages like Python, Java, and JavaScript."
+    "title": "File Sharing",
+    "description": "Allows users to share study materials, documents, and files with each other.",
+    "image": "https://i.ibb.co/QbDBf9f/file-sharing-service.png"
   },
   {
     "id": 5,
-    "image": "https://i.ibb.co/SKyxRVG/image5.jpg",
-    "title": "History of Ancient Civilizations",
-    "description": "Discover the history of ancient civilizations from Egypt to Mesopotamia and beyond."
+    "title": "Whiteboard",
+    "description": "Offers a virtual whiteboard for drawing, writing, and illustrating concepts during study sessions.",
+    "image": "https://i.ibb.co/9bBWJKQ/best-smart-whiteboard-office-use-cost-price.jpg"
   },
   {
     "id": 6,
-    "image": "https://i.ibb.co/NV6QFtd/image6jpg.jpg",
-    "title": "Chemistry Essentials",
-    "description": "Master the essential concepts of chemistry including atoms, molecules, and chemical reactions."
+    "title": "Polls and Surveys",
+    "description": "Enables users to create polls and surveys to gather feedback or gauge understanding.",
+    "image": "https://i.ibb.co/yy1KPX7/Blog-31.jpg"
   },
   {
     "id": 7,
-    "image": "https://i.ibb.co/z4Cq8VS/iamge7.jpg",
-    "title": "Art History",
-    "description": "Explore the evolution of art through the ages, from prehistoric cave paintings to modern art movements."
+    "title": "Calendar and Scheduling",
+    "description": "Allows users to schedule study sessions, set reminders, and manage study group calendars.",
+    "image": "https://i.ibb.co/f2YMkPY/calendar-scheduling-tool.png"
   },
-
   {
     "id": 8,
-    "image": "https://i.ibb.co/163nDmW/image8.jpg",
-    "title": "World Geography",
-    "description": "Discover the diverse landscapes, cultures, and environments of the world's regions."
+    "title": "Breakout Rooms",
+    "description": "Facilitates splitting larger study groups into smaller breakout rooms for focused discussions.",
+    "image": "https://i.ibb.co/bFCfqjx/657c0a6a783ae809cb13d9f9-Zoom-breakout-rooms.png"
   },
   {
     "id": 9,
-    "image": "https://i.ibb.co/g7hbB5S/image4.jpg",
-    "title": "Introduction to Programming",
-    "description": "Learn the basics of programming with languages like Python, Java, and JavaScript."
+    "title": "Note Taking",
+    "description": "Provides tools for users to take notes, highlight key points, and annotate study materials.",
+    "image": "https://i.ibb.co/WtfNDpc/Why-is-note-taking-important-1326x680-1.jpg"
   },
   {
     "id": 10,
-    "image": "https://i.ibb.co/SKyxRVG/image5.jpg",
-    "title": "History of Ancient Civilizations",
-    "description": "Discover the history of ancient civilizations from Egypt to Mesopotamia and beyond."
-  },
-  {
-    "id": 11,
-    "image": "https://i.ibb.co/NV6QFtd/image6jpg.jpg",
-    "title": "Chemistry Essentials",
-    "description": "Master the essential concepts of chemistry including atoms, molecules, and chemical reactions."
+    "title": "Progress Tracking",
+    "description": "Tracks individual and group progress, including attendance, participation, and completion of tasks.",
+    "image": "https://i.ibb.co/nQd7q3G/How-to-Track-a-Projects-Progress.png"
   }
 ]
