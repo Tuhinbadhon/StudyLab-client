@@ -7,9 +7,9 @@ import "animate.css";
 import { Link } from "react-router-dom";
 const MeetAgents = () => {
   return (
-    <div className="h-full " data-aos="fade-up" data-aos-duration="1000">
+    <div className="h-full  " data-aos="fade-up" data-aos-duration="1000">
       {/* paragraph section */}
-      <div className="text-center max-w-screen-sm mx-auto px-2 lg:px-0 mb-6">
+      <div className="text-center  max-w-screen-sm mx-auto px-2 lg:px-0 mb-6">
         <h1
           data-aos="fade-left"
           data-aos-duration="1000"
@@ -29,7 +29,7 @@ const MeetAgents = () => {
       </div>
 
       {/* card section  */}
-      <div className="grid sm:grid-cols-1 md:grid-cols-3 md:p-4 lg:grid-cols-3 gap-4 lg:gap-6 justify-center">
+      <div className="flex flex-wrap justify-center items-center gap-4 lg:gap-10 md:p-4">
         {/* agent 1 */}
         <div className="  hover:scale-110 ease-in duration-300  flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl  dark:bg-gray-50 dark:text-gray-800">
           <img

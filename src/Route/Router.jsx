@@ -9,6 +9,10 @@ import Appointment from "../Pages/Appointment/Appointment";
 import PrivateRoutes from "../Pages/PrivetRoutes/PrivetRoutes";
 import Profile from "../Pages/Profile/Profile";
 import UpdateProfile from "../Pages/UpdateProfile/UpdateProfile";
+import AssignmentForm from "../components/AssignmentForm/AssignmentForm";
+import Assignment from "../components/Assignment/Assignment";
+import PendingAssignment from "../components/PendingAssignment/PendingAssignment";
+import MySubmitted from "../components/MySubmitted/MySubmitted";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +27,11 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/assignment",
+        element: <Assignment />,
+        loader: () => fetch("http://localhost:5000/items"),
       },
       {
         path: "/registration",
@@ -61,6 +70,30 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <UpdateProfile />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/createassignment",
+        element: (
+          <PrivateRoutes>
+            <AssignmentForm />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/pending",
+        element: (
+          <PrivateRoutes>
+            <PendingAssignment />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/mysubmitted",
+        element: (
+          <PrivateRoutes>
+            <MySubmitted />
           </PrivateRoutes>
         ),
       },

@@ -13,7 +13,6 @@ defineElement(lottie.loadAnimation);
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
-  const [showUserDetails, setShowUserDetails] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [theme, setTheme] = useState("light");
   useEffect(() => {
@@ -39,7 +38,7 @@ const Navbar = () => {
       </li>
 
       <li>
-        <Link to="/assignments" onClick={() => setIsDropdownOpen(false)}>
+        <Link to="/assignment" onClick={() => setIsDropdownOpen(false)}>
           Assignments
         </Link>
       </li>
@@ -47,12 +46,15 @@ const Navbar = () => {
       {user ? (
         <>
           <li>
-            <Link to="/addcraftitem" onClick={() => setIsDropdownOpen(false)}>
+            <Link
+              to="/createassignment"
+              onClick={() => setIsDropdownOpen(false)}
+            >
               Create Assignments
             </Link>
           </li>
           <li>
-            <Link to="/art&craftlist" onClick={() => setIsDropdownOpen(false)}>
+            <Link to="/pending" onClick={() => setIsDropdownOpen(false)}>
               Pending Assignments
             </Link>
           </li>
@@ -190,22 +192,45 @@ const Navbar = () => {
           </label>
           {user ? (
             <>
-              <div
-                className="btn btn-ghost tooltip tooltip-bottom btn-circle avatar"
-                onMouseEnter={() => setShowUserDetails(true)}
-                onMouseLeave={() => setShowUserDetails(false)}
-                data-tip={user.displayName}
-              >
-                {user.photoURL ? (
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src={user.photoURL}
-                    alt="User Avatar"
-                  />
-                ) : (
-                  photoIcon
+              <div className="dropdown">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  onClick={toggleDropdown}
+                  className="btn btn-ghost  btn-circle avatar "
+                >
+                  <button
+                    style={{ width: "44px", height: "44px" }} // Add width and height to make it a square
+                  >
+                    {user.photoURL ? (
+                      <img
+                        className="w-10 h-10 rounded-full" // Change to w-full h-full
+                        src={user.photoURL}
+                        alt="User Avatar"
+                      />
+                    ) : (
+                      photoIcon
+                    )}
+                  </button>
+                </div>
+
+                {isDropdownOpen && (
+                  <ul
+                    tabIndex={0}
+                    className="absolute menu menu-sm dropdown-content mt-3 z-[1]   py-2 bg-base-100 rounded-md shadow-lg"
+                  >
+                    <li>
+                      <Link
+                        to="/mysubmitted"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        My Submitted
+                      </Link>
+                    </li>
+                  </ul>
                 )}
               </div>
+
               <button className="btn " onClick={logOutHandler}>
                 <LuLogOut />
                 Log Out{" "}
@@ -215,7 +240,7 @@ const Navbar = () => {
             <>
               <div className="btn btn-ghost btn-circle avatar">
                 {/* Display lordicon if the user is not logged in */}
-                {!user && photoIcon}
+                {!user}
               </div>
               <Link to="/login">
                 <button className="btn max-[450px]:py-1 max-[450px]:px-2 ">

@@ -55,7 +55,7 @@ const Home = () => {
       <div className="mt-5  mb-10 ">
         <Slider />
       </div>
-      <div>
+      <div className="lg:mx-10 mx-4">
         <Features />
       </div>
 

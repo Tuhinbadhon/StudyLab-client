@@ -1,0 +1,69 @@
+[
+  {
+    "id": 1,
+    "image": "https://i.ibb.co/1GvcgJr/image1.png",
+    "title": "Introduction to Biology",
+    "description": "Learn the fundamentals of biology including cell structure, genetics, and ecology."
+  },
+  {
+    "id": 2,
+    "image": "https://i.ibb.co/zbF8JWV/image2.jpg",
+    "title": "Algebra Basics",
+    "description": "Get started with algebra by learning about equations, inequalities, and functions."
+  },
+  {
+    "id": 3,
+    "image": "https://i.ibb.co/r5f9X3f/image3.webp",
+    "title": "English Literature Classics",
+    "description": "Explore classic literature works from Shakespeare to Jane Austen and beyond."
+  },
+  {
+    "id": 4,
+    "image": "https://i.ibb.co/g7hbB5S/image4.jpg",
+    "title": "Introduction to Programming",
+    "description": "Learn the basics of programming with languages like Python, Java, and JavaScript."
+  },
+  {
+    "id": 5,
+    "image": "https://i.ibb.co/SKyxRVG/image5.jpg",
+    "title": "History of Ancient Civilizations",
+    "description": "Discover the history of ancient civilizations from Egypt to Mesopotamia and beyond."
+  },
+  {
+    "id": 6,
+    "image": "https://i.ibb.co/NV6QFtd/image6jpg.jpg",
+    "title": "Chemistry Essentials",
+    "description": "Master the essential concepts of chemistry including atoms, molecules, and chemical reactions."
+  },
+  {
+    "id": 7,
+    "image": "https://i.ibb.co/z4Cq8VS/iamge7.jpg",
+    "title": "Art History",
+    "description": "Explore the evolution of art through the ages, from prehistoric cave paintings to modern art movements."
+  },
+
+  {
+    "id": 8,
+    "image": "https://i.ibb.co/163nDmW/image8.jpg",
+    "title": "World Geography",
+    "description": "Discover the diverse landscapes, cultures, and environments of the world's regions."
+  },
+  {
+    "id": 9,
+    "image": "https://i.ibb.co/g7hbB5S/image4.jpg",
+    "title": "Introduction to Programming",
+    "description": "Learn the basics of programming with languages like Python, Java, and JavaScript."
+  },
+  {
+    "id": 10,
+    "image": "https://i.ibb.co/SKyxRVG/image5.jpg",
+    "title": "History of Ancient Civilizations",
+    "description": "Discover the history of ancient civilizations from Egypt to Mesopotamia and beyond."
+  },
+  {
+    "id": 11,
+    "image": "https://i.ibb.co/NV6QFtd/image6jpg.jpg",
+    "title": "Chemistry Essentials",
+    "description": "Master the essential concepts of chemistry including atoms, molecules, and chemical reactions."
+  }
+]

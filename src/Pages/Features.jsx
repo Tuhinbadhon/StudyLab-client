@@ -12,27 +12,59 @@ import "./Features.css";
 
 // import required modules
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+import Feature from "./Feature";
 
 const Features = () => {
   const [showArrows, setShowArrows] = useState(true);
+  const [datas, setDatas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    fetch("/db.json")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setDatas(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
     const handleResize = () => {
       setShowArrows(window.innerWidth >= 640); // Adjust this value according to your desired breakpoint
     };
 
     handleResize(); // Initial check
-
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <div>
       <div className="text-center max-w-screen-sm mx-auto px-2 lg:px-0 mb-6 lg:mb-10">
-        <h2 className="text-lg font-medium lg:text-3xl lg:font-bold  mt-6 lg:mt-20">
+        <h2
+          data-aos="fade-left"
+          data-aos-duration="1000"
+          className="text-lg font-medium lg:text-3xl lg:font-bold mt-6 lg:mt-20"
+        >
           Features
         </h2>
+        <p
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          className="text-sm lg:text-lg font-normal mt-6 mb-6"
+        >
+          StudyLab provides interactive learning modules that engage students
+          through multimedia content, quizzes, and interactive exercises,
+          enhancing their understanding of various subjects.
+        </p>
       </div>
       <div>
         <Swiper
@@ -48,38 +80,20 @@ const Features = () => {
             modifier: 1,
             slideShadows: true,
           }}
-          pagination={true}
+          pagination={{
+            clickable: true,
+          }}
           navigation={showArrows}
           modules={[EffectCoverflow, Navigation, Pagination]}
-          className="mySwiper"
+          className="mySwiper lg:max-w-full  md:max-w-screen-md sm:max-w-screen-sm  
+                rounded-xl"
         >
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-          </SwiperSlide>
+          {datas &&
+            datas.map((data) => (
+              <SwiperSlide>
+                <Feature data={data} />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </div>
