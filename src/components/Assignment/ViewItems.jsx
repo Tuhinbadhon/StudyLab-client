@@ -54,11 +54,68 @@ const ViewItems = () => {
             </p>
           </div>
 
-          <Link to="/" className="card-actions justify-end mt-4">
-            <button className="btn w-full bg-indigo-400 text-white hover:bg-indigo-300">
-              Take assignment
-            </button>
-          </Link>
+          {/* Open the modal using document.getElementById('ID').showModal() method */}
+          <button
+            className="btn mt-5"
+            onClick={() => document.getElementById("my_modal_5").showModal()}
+          >
+            Take assignment
+          </button>
+          <dialog
+            id="my_modal_5"
+            className="modal modal-bottom sm:modal-middle"
+          >
+            <div className="modal-box">
+              <h2 className="text-center font-bold text-2xl">
+                Assignment submission form
+              </h2>
+              <form>
+                <div className="">
+                  <div className="form-control md:w-full">
+                    <label className="label">
+                      <span className="label-text"> Import PDF/doc link</span>
+                    </label>
+                    <label className="input-group">
+                      <input
+                        type="text"
+                        placeholder="https://www..."
+                        className="input input-bordered w-full"
+                        name="image"
+                        id=""
+                        required
+                      />
+                    </label>
+                  </div>
+                  <div className="form-control md:w-1/2">
+                    <label className="label">
+                      <span className="label-text">Quick note</span>
+                    </label>
+                    <label className="input-group">
+                      <textarea
+                        type="text"
+                        placeholder="Leave a note here"
+                        className="textarea textarea-bordered w-full"
+                        name="description"
+                        id=""
+                        required
+                      />
+                    </label>
+                  </div>
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className="btn mt-3 btn-block bg-gray-600 max-[450px]:mt-5 text-white hover:bg-green-600 "
+                  />
+                </div>
+              </form>
+              <div className="modal-action">
+                <form method="dialog">
+                  {/* if there is a button in form, it will close the modal */}
+                  <button className="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
       </div>
     </div>
