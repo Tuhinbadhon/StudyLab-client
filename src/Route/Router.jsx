@@ -13,6 +13,8 @@ import AssignmentForm from "../components/AssignmentForm/AssignmentForm";
 import Assignment from "../components/Assignment/Assignment";
 import PendingAssignment from "../components/PendingAssignment/PendingAssignment";
 import MySubmitted from "../components/MySubmitted/MySubmitted";
+import ViewItems from "../components/Assignment/ViewItems";
+import UpdateItems from "../components/Assignment/UpdateItems";
 
 const router = createBrowserRouter([
   {
@@ -96,6 +98,26 @@ const router = createBrowserRouter([
             <MySubmitted />
           </PrivateRoutes>
         ),
+      },
+      {
+        path: "/viewitems/:id",
+        element: (
+          <PrivateRoutes>
+            <ViewItems />
+          </PrivateRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/items/${params.id}`),
+      },
+      {
+        path: "/updateitems/:id",
+        element: (
+          <PrivateRoutes>
+            <UpdateItems />
+          </PrivateRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/items/${params.id}`),
       },
     ],
   },

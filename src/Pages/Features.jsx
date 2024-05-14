@@ -48,7 +48,7 @@ const Features = () => {
 
   return (
     <div>
-      <div className="text-center max-w-screen-sm mx-auto px-2 lg:px-0 mb-6 lg:mb-10">
+      <div className="text-center max-w-screen-sm mx-auto px-2 lg:px-0 mb-4  lg:mb-10">
         <h2
           data-aos="fade-left"
           data-aos-duration="1000"

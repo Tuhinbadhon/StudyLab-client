@@ -1,13 +1,30 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
+
 const ItemsCard = ({ item, items, setItems }) => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const { _id, image, item_title, description, marks, category } = item;
+
   const handleDelete = (_id) => {
-    if (user.email === item.userEmail) {
-      console.log(_id);
+    if (!user) {
+      // Show modal if user is not logged in
+      Swal.fire({
+        title: "Please Log In",
+        text: "You need to log in to perform this action.",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Log In",
+        cancelButtonText: "Cancel",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    } else if (user.email === item.userEmail) {
+      // Proceed with delete operation
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -44,6 +61,7 @@ const ItemsCard = ({ item, items, setItems }) => {
       });
     }
   };
+
   return (
     <div className="max-[450px]:mx-5 lg:flex  justify-center items-center bg-base-100 rounded-lg border">
       <div className="lg:max-w-60  md:max-w-full  max-[450px]:w-full p-3 ">
@@ -57,16 +75,16 @@ const ItemsCard = ({ item, items, setItems }) => {
           <h2 className="card-title">Title: {item_title}</h2>
           <div className="">
             <p className="flex gap-1">
-              Difficalty Level: <b>{category}</b>
+              Difficulty Level: <b>{category}</b>
             </p>
             <p>
-              marks: <b>{marks}</b>{" "}
+              Marks: <b>{marks}</b>{" "}
             </p>
           </div>
         </div>
         <div className="card-actions justify-end">
           <div className="join join-vertical  space-y-4">
-            <Link to={`/updateitems/${_id}`}>
+            <Link to={`/viewitems/${_id}`}>
               <button className=" text-white rounded-md w-full btn btn-info ">
                 View
               </button>

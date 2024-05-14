@@ -12,7 +12,7 @@ const FAQ = () => {
           >
             Frequently Asked Questions
           </h1>
-          <div className="collapse collapse-arrow bg-base-200">
+          <div className="collapse  collapse-arrow mb-2 bg-base-200">
             <input type="radio" name="my-accordion-2" defaultChecked />
             <div className="collapse-title text-xl font-medium">
               What is StudyLab?
@@ -27,7 +27,7 @@ const FAQ = () => {
               </p>
             </div>
           </div>
-          <div className="collapse collapse-arrow bg-base-200">
+          <div className="collapse collapse-arrow  mb-2 bg-base-200">
             <input type="radio" name="my-accordion-2" />
             <div className="collapse-title text-xl font-medium">
               How can I access StudyLab?
@@ -40,7 +40,7 @@ const FAQ = () => {
               </p>
             </div>
           </div>
-          <div className="collapse collapse-arrow bg-base-200">
+          <div className="collapse collapse-arrow mb-2  bg-base-200">
             <input type="radio" name="my-accordion-2" />
             <div className="collapse-title text-xl font-medium">
               Is StudyLab free to use?
@@ -53,7 +53,7 @@ const FAQ = () => {
               </p>
             </div>
           </div>
-          <div className="collapse collapse-arrow bg-base-200">
+          <div className="collapse collapse-arrow mb-2  bg-base-200">
             <input type="radio" name="my-accordion-2" />
             <div className="collapse-title text-xl font-medium">
               Are the learning materials on StudyLab suitable for all ages?
@@ -67,7 +67,7 @@ const FAQ = () => {
               </p>
             </div>
           </div>
-          <div className="collapse collapse-arrow bg-base-200">
+          <div className="collapse collapse-arrow mb-2  bg-base-200">
             <input type="radio" name="my-accordion-2" />
             <div className="collapse-title text-xl font-medium">
               Is StudyLab suitable for homeschooling?
