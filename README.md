@@ -19,3 +19,13 @@
 7. Collaboration Tools: Study Lab offers collaboration tools that enable users to work together on group assignments or projects. Users can share files, communicate with team members, and collaborate seamlessly within the platform.
 
 # Website Category: Online Group-Study
+
+# Resources:
+
+Swiper-Slider
+Daisy UI
+TailwindCSS
+React Router Dom
+Express
+MongoDB
+axios

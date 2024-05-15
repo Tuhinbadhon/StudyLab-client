@@ -58,5 +58,35 @@
     "title": "Progress Tracking",
     "description": "Tracks individual and group progress, including attendance, participation, and completion of tasks.",
     "image": "https://i.ibb.co/nQd7q3G/How-to-Track-a-Projects-Progress.png"
+  },
+  {
+    "id": 11,
+    "title": "Polls and Surveys",
+    "description": "Enables users to create polls and surveys to gather feedback or gauge understanding.",
+    "image": "https://i.ibb.co/yy1KPX7/Blog-31.jpg"
+  },
+  {
+    "id": 12,
+    "title": "Calendar and Scheduling",
+    "description": "Allows users to schedule study sessions, set reminders, and manage study group calendars.",
+    "image": "https://i.ibb.co/f2YMkPY/calendar-scheduling-tool.png"
+  },
+  {
+    "id": 13,
+    "title": "Breakout Rooms",
+    "description": "Facilitates splitting larger study groups into smaller breakout rooms for focused discussions.",
+    "image": "https://i.ibb.co/bFCfqjx/657c0a6a783ae809cb13d9f9-Zoom-breakout-rooms.png"
+  },
+  {
+    "id": 14,
+    "title": "Note Taking",
+    "description": "Provides tools for users to take notes, highlight key points, and annotate study materials.",
+    "image": "https://i.ibb.co/WtfNDpc/Why-is-note-taking-important-1326x680-1.jpg"
+  },
+  {
+    "id": 15,
+    "title": "Progress Tracking",
+    "description": "Tracks individual and group progress, including attendance, participation, and completion of tasks.",
+    "image": "https://i.ibb.co/nQd7q3G/How-to-Track-a-Projects-Progress.png"
   }
 ]

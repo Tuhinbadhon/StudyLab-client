@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Login.css";
 import { useContext } from "react";
@@ -12,6 +12,8 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 const Login = () => {
   const [showPass, setShowpass] = useState(false);
   const helmetContext = {};
+  const location = useLocation();
+  const from = location.state || "/";
 
   const { signInUser, signInWithGoogle, signInWithGithub } =
     useContext(AuthContext);
@@ -33,7 +35,7 @@ const Login = () => {
         e.target.reset();
         setShowpass(false);
 
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         Swal.fire({
@@ -51,7 +53,7 @@ const Login = () => {
           text: "Successfully login",
           icon: "success",
         });
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         Swal.fire({
@@ -70,7 +72,7 @@ const Login = () => {
           text: "Successfully login",
           icon: "success",
         });
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         Swal.fire({

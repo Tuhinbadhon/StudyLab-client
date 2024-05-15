@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 //this route is use for registration page
@@ -8,6 +8,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const PrivateRoutes2 = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -19,7 +20,7 @@ const PrivateRoutes2 = ({ children }) => {
     return children;
   }
 
-  return <Navigate to="/"></Navigate>;
+  return <Navigate to="/" state={location.pathname} replace={true}></Navigate>;
 };
 
 export default PrivateRoutes2;

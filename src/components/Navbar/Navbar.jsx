@@ -71,18 +71,18 @@ const Navbar = () => {
     </>
   );
 
-  const photoIcon = (
-    <div className="w-10 rounded-full">
-      <lord-icon
-        className="w-full h-full"
-        src="https://cdn.lordicon.com/kthelypq.json"
-        trigger="loop"
-        delay="500"
-        colors="primary:#000"
-        style={{ width: "40px", height: "40px" }}
-      ></lord-icon>
-    </div>
-  );
+  // const photoIcon = (
+  //   <div className="w-10 rounded-full">
+  //     <lord-icon
+  //       className="w-full h-full"
+  //       src="https://cdn.lordicon.com/kthelypq.json"
+  //       trigger="loop"
+  //       delay="500"
+  //       colors="primary:#000"
+  //       style={{ width: "40px", height: "40px" }}
+  //     ></lord-icon>
+  //   </div>
+  // );
 
   const logOutHandler = () => {
     signOutUser()
@@ -192,7 +192,7 @@ const Navbar = () => {
           </label>
           {user ? (
             <>
-              <div className="dropdown">
+              <div className="dropdown dropdown-end z-50">
                 <div
                   tabIndex={0}
                   role="button"
@@ -204,12 +204,12 @@ const Navbar = () => {
                   >
                     {user.photoURL ? (
                       <img
-                        className="w-10 h-10 rounded-full" // Change to w-full h-full
+                        className="w-11 h-11 rounded-full" // Change to w-full h-full
                         src={user.photoURL}
                         alt="User Avatar"
                       />
                     ) : (
-                      photoIcon
+                      ""
                     )}
                   </button>
                 </div>
@@ -217,24 +217,27 @@ const Navbar = () => {
                 {isDropdownOpen && (
                   <ul
                     tabIndex={0}
-                    className="absolute menu menu-sm dropdown-content mt-3 z-[1]   py-2 bg-base-100 rounded-md shadow-lg"
+                    className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                   >
                     <li>
                       <Link
                         to="/mysubmitted"
                         onClick={() => setIsDropdownOpen(false)}
                       >
-                        My Submitted
+                        My Submit
                       </Link>
+                    </li>
+                    <li className="mt-2">
+                      <button
+                        className="bg-gray-200 block text-center "
+                        onClick={logOutHandler}
+                      >
+                        Log Out{" "}
+                      </button>
                     </li>
                   </ul>
                 )}
               </div>
-
-              <button className="btn " onClick={logOutHandler}>
-                <LuLogOut />
-                Log Out{" "}
-              </button>
             </>
           ) : (
             <>

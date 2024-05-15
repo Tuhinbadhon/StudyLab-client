@@ -1,11 +1,59 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Link, useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const ViewItems = () => {
+  const { user } = useContext(AuthContext);
   const helmetContext = {};
   const items = useLoaderData();
   console.log(items);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const pdf = form.pdf.value.trim();
+    const note = form.note.value.trim();
+    if (!pdf || !note) {
+      Swal.fire({
+        title: "Error!",
+        text: "All fields are required.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+    const userName = user.displayName;
+    const userEmail = user.email;
+    const newSubmitItems = {
+      pdf,
+      note,
+      userName,
+      userEmail,
+    };
+    console.log(newSubmitItems);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/attemptedItems",
+        newSubmitItems
+      );
+      if (response.data.insertedId) {
+        Swal.fire({
+          title: "Success!",
+          text: "Item Added Successfully",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        document.getElementById("my_modal_5").close();
+      }
+    } catch (error) {
+      console.error("There was an error submitting the item!", error);
+    }
+  };
+
   return (
     <div className="lg:mt-10 lg:mx-20 mt-5">
       <HelmetProvider context={helmetContext}>
@@ -26,35 +74,27 @@ const ViewItems = () => {
 
           <div className="flex flex-col gap-2">
             <p>
-              {" "}
               <b>Difficulty level:</b> {items.category}{" "}
             </p>
             <p>
-              {" "}
               <b>Description:</b> {items.description}{" "}
             </p>
             <p>
-              {" "}
-              <b>Assignment Marks : </b> {items.marks}{" "}
+              <b>Assignment Marks:</b> {items.marks}{" "}
             </p>
-
             <p>
-              {" "}
-              <b>Date : </b> {items.dueDate}{" "}
+              <b>Date:</b> {items.dueDate}{" "}
             </p>
           </div>
           <div className="flex flex-col gap-2">
             <p>
-              <b>User Name : </b>
-              {items.userName}{" "}
+              <b>User Name:</b> {items.userName}{" "}
             </p>
             <p>
-              {" "}
               <b>User Email:</b> {items.userEmail}
             </p>
           </div>
 
-          {/* Open the modal using document.getElementById('ID').showModal() method */}
           <button
             className="btn mt-5"
             onClick={() => document.getElementById("my_modal_5").showModal()}
@@ -66,21 +106,43 @@ const ViewItems = () => {
             className="modal modal-bottom sm:modal-middle"
           >
             <div className="modal-box">
-              <h2 className="text-center font-bold text-2xl">
-                Assignment submission form
-              </h2>
-              <form>
+              <div className="flex justify-between items-baseline">
+                <h2 className="text-center font-bold text-2xl">
+                  Assignment submission form
+                </h2>
+                <div className="modal-action">
+                  <form method="dialog">
+                    <button className="btn btn-square btn-outline hover:bg-red-500">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <form className="" onSubmit={handleSubmit}>
                 <div className="">
                   <div className="form-control md:w-full">
                     <label className="label">
-                      <span className="label-text"> Import PDF/doc link</span>
+                      <span className="label-text">Import PDF/doc link</span>
                     </label>
                     <label className="input-group">
                       <input
                         type="text"
                         placeholder="https://www..."
                         className="input input-bordered w-full"
-                        name="image"
+                        name="pdf"
                         id=""
                         required
                       />
@@ -95,7 +157,7 @@ const ViewItems = () => {
                         type="text"
                         placeholder="Leave a note here"
                         className="textarea textarea-bordered w-full"
-                        name="description"
+                        name="note"
                         id=""
                         required
                       />
@@ -104,16 +166,10 @@ const ViewItems = () => {
                   <input
                     type="submit"
                     value="Submit"
-                    className="btn mt-3 btn-block bg-gray-600 max-[450px]:mt-5 text-white hover:bg-green-600 "
+                    className="btn mt-3 btn-block bg-gray-600 max-[450px]:mt-5 text-white hover:bg-green-600"
                   />
                 </div>
               </form>
-              <div className="modal-action">
-                <form method="dialog">
-                  {/* if there is a button in form, it will close the modal */}
-                  <button className="btn">Close</button>
-                </form>
-              </div>
             </div>
           </dialog>
         </div>

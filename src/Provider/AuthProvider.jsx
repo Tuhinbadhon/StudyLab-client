@@ -6,7 +6,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { GithubAuthProvider } from "firebase/auth";
 import auth from "../../firebase.config";
@@ -20,19 +19,52 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const createUser = (email, password) => {
+  const createUser = async (email, password) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+    try {
+      const credential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      setUser(credential.user);
+      const token = await credential.user.getIdToken();
+      localStorage.setItem("token", token);
+    } catch (error) {
+      console.error("Error creating user:", error.message);
+      setLoading(false);
+    }
   };
 
-  const signInUser = (email, password) => {
+  const signInUser = async (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    try {
+      const credential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      setUser(credential.user);
+      const token = await credential.user.getIdToken();
+      localStorage.setItem("token", token);
+      window.location.href = "/"; // Redirect to home page after login
+    } catch (error) {
+      console.error("Error signing in:", error.message);
+      setLoading(false);
+    }
   };
 
-  const signOutUser = () => {
+  const signOutUser = async () => {
     setLoading(true);
-    return signOut(auth);
+    try {
+      await signOut(auth);
+      setUser(null);
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Error signing out:", error.message);
+      setLoading(false);
+    }
   };
 
   const signInWithGoogle = () => {
@@ -45,36 +77,41 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, githubProvider);
   };
 
-  // observe state change if the user is logged in or not
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const userEmail = currentUser?.email || user?.email;
-      const loggedUser = { email: userEmail };
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      console.log(currentUser);
-      //if user exist then issue a token
-      if (currentUser) {
-        axios
-          .post("http://localhost:5000/jwt", loggedUser, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            console.log("token response", res.data);
-          });
-      } else {
-        axios
-          .post("http://localhost:5000/logout", loggedUser, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            console.log(res.data);
-          });
-      }
       setLoading(false);
+      if (currentUser) {
+        const userEmail = currentUser.email;
+        const loggedUser = { email: userEmail };
+        try {
+          const response = await axios.post(
+            "http://localhost:5000/jwt",
+            loggedUser,
+            {
+              withCredentials: true,
+            }
+          );
+          console.log("Token response", response.data);
+        } catch (error) {
+          console.error("Error issuing token:", error.message);
+        }
+      } else {
+        try {
+          const response = await axios.post(
+            "http://localhost:5000/logout",
+            {},
+            {
+              withCredentials: true,
+            }
+          );
+          console.log("Logout response", response.data);
+        } catch (error) {
+          console.error("Error logging out:", error.message);
+        }
+      }
     });
-    return () => {
-      unSubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   const authInfo = {
