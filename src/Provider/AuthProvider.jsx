@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { GithubAuthProvider } from "firebase/auth";
 import auth from "../../firebase.config";
@@ -19,52 +20,19 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const createUser = async (email, password) => {
+  const createUser = (email, password) => {
     setLoading(true);
-    try {
-      const credential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      setUser(credential.user);
-      const token = await credential.user.getIdToken();
-      localStorage.setItem("token", token);
-    } catch (error) {
-      console.error("Error creating user:", error.message);
-      setLoading(false);
-    }
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const signInUser = async (email, password) => {
+  const signInUser = (email, password) => {
     setLoading(true);
-    try {
-      const credential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      setUser(credential.user);
-      const token = await credential.user.getIdToken();
-      localStorage.setItem("token", token);
-      window.location.href = "/"; // Redirect to home page after login
-    } catch (error) {
-      console.error("Error signing in:", error.message);
-      setLoading(false);
-    }
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signOutUser = async () => {
+  const signOutUser = () => {
     setLoading(true);
-    try {
-      await signOut(auth);
-      setUser(null);
-      localStorage.removeItem("token");
-      window.location.href = "/login";
-    } catch (error) {
-      console.error("Error signing out:", error.message);
-      setLoading(false);
-    }
+    return signOut(auth);
   };
 
   const signInWithGoogle = () => {
@@ -77,41 +45,36 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, githubProvider);
   };
 
+  // observe state change if the user is logged in or not
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email;
+      const loggedUser = { email: userEmail };
       setUser(currentUser);
-      setLoading(false);
+      console.log(currentUser);
+      //if user exist then issue a token
       if (currentUser) {
-        const userEmail = currentUser.email;
-        const loggedUser = { email: userEmail };
-        try {
-          const response = await axios.post(
-            "http://localhost:5000/jwt",
-            loggedUser,
-            {
-              withCredentials: true,
-            }
-          );
-          console.log("Token response", response.data);
-        } catch (error) {
-          console.error("Error issuing token:", error.message);
-        }
+        axios
+          .post("http://localhost:5000/jwt", loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log("token response", res.data);
+          });
       } else {
-        try {
-          const response = await axios.post(
-            "http://localhost:5000/logout",
-            {},
-            {
-              withCredentials: true,
-            }
-          );
-          console.log("Logout response", response.data);
-        } catch (error) {
-          console.error("Error logging out:", error.message);
-        }
+        axios
+          .post("http://localhost:5000/logout", loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
       }
+      setLoading(false);
     });
-    return () => unsubscribe();
+    return () => {
+      unSubscribe();
+    };
   }, []);
 
   const authInfo = {
