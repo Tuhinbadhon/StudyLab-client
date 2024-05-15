@@ -47,16 +47,18 @@ const AssignmentForm = () => {
     };
 
     // Send data to the server
-    axios.post("http://localhost:5000/items", newItem).then((data) => {
-      if (data.data.insertedId) {
-        Swal.fire({
-          title: "Success!",
-          text: "Item Added Successfully",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
-      }
-    });
+    axios
+      .post("https://b9a11server-site.vercel.app/items", newItem)
+      .then((data) => {
+        if (data.data.insertedId) {
+          Swal.fire({
+            title: "Success!",
+            text: "Item Added Successfully",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+        }
+      });
   };
 
   return (

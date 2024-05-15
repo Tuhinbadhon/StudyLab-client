@@ -71,18 +71,18 @@ const Navbar = () => {
     </>
   );
 
-  // const photoIcon = (
-  //   <div className="w-10 rounded-full">
-  //     <lord-icon
-  //       className="w-full h-full"
-  //       src="https://cdn.lordicon.com/kthelypq.json"
-  //       trigger="loop"
-  //       delay="500"
-  //       colors="primary:#000"
-  //       style={{ width: "40px", height: "40px" }}
-  //     ></lord-icon>
-  //   </div>
-  // );
+  const photoIcon = (
+    <div className="w-10 rounded-full">
+      <lord-icon
+        className="w-full h-full"
+        src="https://cdn.lordicon.com/kthelypq.json"
+        trigger="loop"
+        delay="500"
+        colors="primary:#000"
+        style={{ width: "40px", height: "40px" }}
+      ></lord-icon>
+    </div>
+  );
 
   const logOutHandler = () => {
     signOutUser()
@@ -204,12 +204,12 @@ const Navbar = () => {
                   >
                     {user.photoURL ? (
                       <img
-                        className="w-11 h-11 rounded-full" // Change to w-full h-full
+                        className="w-10 h-10 rounded-full" // Change to w-full h-full
                         src={user.photoURL}
                         alt="User Avatar"
                       />
                     ) : (
-                      ""
+                      photoIcon
                     )}
                   </button>
                 </div>

@@ -14,7 +14,7 @@ const Assignment = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/items")
+    fetch("https://b9a11server-site.vercel.app/items")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

@@ -54,7 +54,7 @@ const UpdateItems = () => {
     };
 
     axios
-      .put(`http://localhost:5000/items/${_id}`, updatedItem)
+      .put(`https://b9a11server-site.vercel.app/items/${_id}`, updatedItem)
       .then((response) => {
         if (response.data.modifiedCount > 0) {
           Swal.fire({

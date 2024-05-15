@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       {
         path: "/assignment",
         element: <Assignment />,
-        loader: () => fetch("http://localhost:5000/items"),
+        loader: () => fetch("https://b9a11server-site.vercel.app/items"),
       },
       {
         path: "/registration",
@@ -107,7 +107,7 @@ const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/items/${params.id}`),
+          fetch(`https://b9a11server-site.vercel.app/items/${params.id}`),
       },
       {
         path: "/updateitems/:id",
@@ -117,7 +117,7 @@ const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/items/${params.id}`),
+          fetch(`https://b9a11server-site.vercel.app/items/${params.id}`),
       },
     ],
   },

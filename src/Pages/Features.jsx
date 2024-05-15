@@ -85,8 +85,7 @@ const Features = () => {
           }}
           navigation={showArrows}
           modules={[EffectCoverflow, Navigation, Pagination]}
-          className="mySwiper lg:max-w-full  md:max-w-screen-md sm:max-w-screen-sm  
-                rounded-xl"
+          className="mySwiper "
         >
           {datas &&
             datas.map((data) => (
