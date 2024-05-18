@@ -2,16 +2,14 @@ import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { Pagination, EffectCoverflow, Navigation } from "swiper/modules";
+
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import "./Features.css";
 
-// import required modules
-import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 import Feature from "./Feature";
 
 const Features = () => {
@@ -36,21 +34,13 @@ const Features = () => {
         setError(error.message);
         setLoading(false);
       });
-    const handleResize = () => {
-      setShowArrows(window.innerWidth >= 640); // Adjust this value according to your desired breakpoint
-    };
-
-    handleResize(); // Initial check
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <div>
       <div className="text-center max-w-screen-sm mx-auto px-2 lg:px-0 mb-4  lg:mb-10">
         <h2
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-duration="1000"
           className="text-lg font-medium lg:text-3xl lg:font-bold mt-6 lg:mt-20"
         >
@@ -67,33 +57,42 @@ const Features = () => {
         </p>
       </div>
       <div>
-        <Swiper
-          effect={"coverflow"}
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={"auto"}
-          loop={true}
-          coverflowEffect={{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          navigation={showArrows}
-          modules={[EffectCoverflow, Navigation, Pagination]}
-          className="mySwiper "
-        >
-          {datas &&
-            datas.map((data) => (
-              <SwiperSlide>
-                <Feature data={data} />
-              </SwiperSlide>
-            ))}
-        </Swiper>
+        {loading ? (
+          <div className="flex items-center justify-center h-screen">
+            <span className="loading loading-ring loading-xs"></span>
+            <span className="loading loading-ring loading-sm"></span>
+            <span className="loading loading-ring loading-md"></span>
+            <span className="loading loading-ring loading-lg"></span>
+          </div>
+        ) : (
+          <Swiper
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={"auto"}
+            loop={"true"}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            navigation={true}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[EffectCoverflow, Pagination, Navigation]}
+            className="mySwiper"
+          >
+            {datas &&
+              datas.map((data) => (
+                <SwiperSlide>
+                  <Feature key={data.id} data={data} setDatas={() => {}} />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        )}
       </div>
     </div>
   );

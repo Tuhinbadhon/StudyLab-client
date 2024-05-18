@@ -15,6 +15,7 @@ import PendingAssignment from "../components/PendingAssignment/PendingAssignment
 import MySubmitted from "../components/MySubmitted/MySubmitted";
 import ViewItems from "../components/Assignment/ViewItems";
 import UpdateItems from "../components/Assignment/UpdateItems";
+import GiveMark from "../components/PendingAssignment/GiveMark";
 
 const router = createBrowserRouter([
   {
@@ -118,6 +119,18 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`https://b9a11server-site.vercel.app/items/${params.id}`),
+      },
+      {
+        path: "/givemark/:id",
+        element: (
+          <PrivateRoutes>
+            <GiveMark />
+          </PrivateRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://b9a11server-site.vercel.app/attemptedItems/${params.id}`
+          ),
       },
     ],
   },

@@ -29,10 +29,11 @@ const PendingAssignment = () => {
       fetchAssignments();
     }
   }, [user]);
+
   let serial = 1;
 
   return (
-    <div className="">
+    <div className=" lg:mx-10 mx-3">
       <HelmetProvider context={helmetContext}>
         <Helmet>
           <title>STUDYLAB | Pending Assignments</title>
@@ -42,7 +43,7 @@ const PendingAssignment = () => {
       {loading ? (
         <span className="loading loading-spinner text-error w-10 h-40"></span>
       ) : (
-        <div className="hero min-h-screen bg-base-200 rounded-2xl  max-w-sm md:max-w-md lg:max-w-full md:mx-auto">
+        <div className="hero min-h-screen overflow-auto bg-gray-200  rounded-2xl  lg:max-w-full ">
           <div className="hero-content flex-col">
             <div
               data-aos="fade-left"
@@ -63,44 +64,47 @@ const PendingAssignment = () => {
                       <th className="border ">Serial</th>
                       <th className="border ">Examinee Name</th>
                       <th className="border ">Title</th>
-
                       <th className="border ">Assignment Marks</th>
-                      <th className="border "></th>
+                      <th className="border ">Status</th>
                       <th className="border "></th>
                     </tr>
                   </thead>
                   <tbody className=" font-normal text-base md:text-lg lg:text-lg">
                     {arts &&
-                      arts.map((art) => (
-                        <tr key={art._id} className="">
-                          <td className="border ">{serial++}</td>
-                          <td className="border ">{art.userName}</td>
-                          <td className="border ">{art.title}</td>
-                          <td className="border">{art.marks}</td>
-
-                          <td className="border">
-                            {user ? (
-                              <Link to={`/craftitems/${art._id}`}>
-                                <button className="btn text-white  bg-indigo-400  rounded-3xl">
-                                  Give mark
+                      arts.map((art) => {
+                        if (art.status === "pending") {
+                          return (
+                            <tr key={art._id} className="">
+                              <td className="border text-center ">
+                                {serial++}
+                              </td>
+                              <td className="border text-center ">
+                                {art.userName}
+                              </td>
+                              <td className="border ">{art.title}</td>
+                              <td className="border text-center">
+                                {art.totalMarks}
+                              </td>
+                              <td className="border">
+                                <button className="btn text-white bg-orange-400 rounded-3xl">
+                                  {art.status}
                                 </button>
-                              </Link>
-                            ) : (
-                              <button
-                                onClick={viewDetailsDeny}
-                                className="btn text-white bg-indigo-400 rounded-3xl"
-                              >
-                                Give mark
-                              </button>
-                            )}
-                          </td>
-                          <td className="border">
-                            <button className="btn text-white bg-indigo-400 rounded-3xl">
-                              Pending
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                              </td>
+                              <td className="border">
+                                {user && user.email === art.email && (
+                                  <Link to={`/givemark/${art._id}`}>
+                                    <button className="btn text-white bg-indigo-400 rounded-3xl">
+                                      Give mark
+                                    </button>
+                                  </Link>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
                   </tbody>
                 </table>
               </div>

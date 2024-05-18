@@ -31,7 +31,7 @@ const MySubmitted = () => {
   }, [user]);
 
   return (
-    <div className="lg:mt-10 lg:mx-20 mt-5">
+    <div className="lg:mt-10 mx-5 lg:mx-20 mt-5">
       <HelmetProvider context={helmetContext}>
         <Helmet>
           <title>STUDYLAB | My Assignments</title>
@@ -43,21 +43,28 @@ const MySubmitted = () => {
           assignment.userEmail === user.email ? (
             <div
               key={assignment._id}
-              className="bg-white shadow-md rounded-lg p-4"
+              className="bg-white  border shadow-md rounded-lg p-4"
             >
-              <h3 className="text-xl font-semibold">{assignment.title}</h3>
-              <p>
-                <b>Status:</b> {assignment.status}
-              </p>
-              <p>
-                <b>Assignment Marks:</b> {assignment.marks}
-              </p>
-              <p>
-                <b>Obtained Marks:</b> {assignment.obtainedMarks}
-              </p>
-              <p>
-                <b>Feedback:</b> {assignment.feedback}
-              </p>
+              <div>
+                <h3 className="text-xl mb-3 lg:font-semibold">
+                  Title: {assignment.title}
+                </h3>
+                <p>
+                  <b>Status:</b>{" "}
+                  <span className="font-extrabold text-lg text-orange-400">
+                    {assignment.status}
+                  </span>
+                </p>
+                <p>
+                  <b>Assignment Marks:</b> {assignment.totalMarks}
+                </p>
+                <p>
+                  <b>Obtained Marks:</b> {assignment.obtainMarks}
+                </p>
+                <p>
+                  <b>Feedback:</b> {assignment.feedback}
+                </p>
+              </div>
             </div>
           ) : null
         )}
