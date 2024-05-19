@@ -11,7 +11,7 @@ const MeetAgents = () => {
       {/* paragraph section */}
       <div className="text-center  max-w-screen-sm mx-auto px-2 lg:px-0 mb-6">
         <h1
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-duration="1000"
           className="text-lg font-medium lg:text-3xl lg:font-bold  mt-6 lg:mt-20 "
         >

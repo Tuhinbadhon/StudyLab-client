@@ -6,7 +6,7 @@ const FAQ = () => {
       <section className="  ">
         <div className="container flex flex-col items-center p-4 mx-auto md:p-8">
           <h1
-            data-aos="fade-down"
+            data-aos="fade-up"
             data-aos-duration="1000"
             className="text-lg font-medium mb-10 lg:text-3xl lg:font-bold text-center"
           >
