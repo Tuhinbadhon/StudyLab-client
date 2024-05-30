@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Registration.css";
@@ -9,17 +9,34 @@ import Swal from "sweetalert2";
 import ReactDOM from "react-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from "../../Provider/AuthProvider";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
 
 const Registration = () => {
   const [registerError, setRegisterError] = useState("");
   const [showPass, setShowpass] = useState(false);
   const [showButton, setShowButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false); // State for loading indicator
+  const [disabled, setDisabled] = useState(true);
 
   const authInfo = useContext(AuthContext);
   const { createUser } = authInfo;
 
   const helmetContext = {};
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+  const handleValidateCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
+    if (validateCaptcha(user_captcha_value)) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
 
   const registerFormHandler = (e) => {
     e.preventDefault();
@@ -165,11 +182,25 @@ const Registration = () => {
                   </span>
                 </div>
               </div>
+              <div className="space-y-2">
+                <label className="label ">
+                  <LoadCanvasTemplate />
+                </label>
+                <input
+                  onBlur={handleValidateCaptcha}
+                  type="text"
+                  name="captcha"
+                  placeholder="Type the captcha here "
+                  className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
+                  required
+                />
+              </div>
             </div>
             <div className="flex gap-2 ">
               <input
                 type="checkbox"
                 onClick={() => setShowButton(!showButton)}
+                required
               />
               <p>
                 I accept all the{" "}
@@ -182,7 +213,7 @@ const Registration = () => {
             <button
               className="btn w-full  px-8 py-3 
                         font-semibold rounded-md dark:bg-pink-600 hover:bg-pink-800 dark:text-gray-50"
-              disabled={showButton}
+              disabled={disabled}
             >
               {isLoading ? "Loading..." : "Register"}
             </button>

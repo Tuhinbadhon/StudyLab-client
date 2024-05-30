@@ -4,10 +4,12 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Link, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ViewItems = () => {
   const { user } = useContext(AuthContext);
   const helmetContext = {};
+  const axiosSecure = useAxiosSecure();
   const items = useLoaderData();
   console.log(items);
 
@@ -59,8 +61,8 @@ const ViewItems = () => {
     console.log(newSubmitItems);
 
     try {
-      const response = await axios.post(
-        "https://b9a11server-site.vercel.app/attemptedItems",
+      const response = await axiosSecure.post(
+        "/attemptedItems",
         newSubmitItems
       );
       if (response.data.insertedId) {
@@ -78,9 +80,8 @@ const ViewItems = () => {
   };
   const denyassignment = () => {
     Swal.fire({
-      title: "Error!",
-      text: "you cannot submit ur own assignment",
-      icon: "Error",
+      text: "you cannot submit your own assignment",
+      icon: "warning",
       confirmButtonText: "OK",
     });
   };

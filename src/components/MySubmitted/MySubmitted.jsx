@@ -1,13 +1,16 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { RotatingLines } from "react-loader-spinner";
 
 const MySubmitted = () => {
   const { user } = useContext(AuthContext);
   const [assignments, setAssignments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const helmetContext = {};
+
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
@@ -22,6 +25,9 @@ const MySubmitted = () => {
         setAssignments(response.data);
       } catch (error) {
         console.error("Error fetching assignments:", error);
+        setError(error);
+      } finally {
+        setLoading(false); // Set loading state to false after fetch completes
       }
     };
 
@@ -29,6 +35,26 @@ const MySubmitted = () => {
       fetchAssignments();
     }
   }, [user]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <RotatingLines
+          visible={true}
+          height="80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="lg:mt-10 mx-5 lg:mx-20 mt-5">
@@ -43,7 +69,7 @@ const MySubmitted = () => {
           assignment.userEmail === user.email ? (
             <div
               key={assignment._id}
-              className="bg-white  border shadow-md rounded-lg p-4"
+              className="bg-white border shadow-md rounded-lg p-4"
             >
               <div>
                 <h3 className="text-xl mb-3 lg:font-semibold">
@@ -51,7 +77,13 @@ const MySubmitted = () => {
                 </h3>
                 <p>
                   <b>Status:</b>{" "}
-                  <span className="font-extrabold text-lg text-orange-400">
+                  <span
+                    className={` font-extrabold text-lg ${
+                      assignment.status === "completed"
+                        ? "text-green-500"
+                        : "text-orange-400"
+                    }`}
+                  >
                     {assignment.status}
                   </span>
                 </p>

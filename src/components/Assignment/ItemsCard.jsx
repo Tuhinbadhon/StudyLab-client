@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ItemsCard = ({ item, items, setItems }) => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const axiosSecure = useAxiosSecure();
   const { _id, image, item_title, description, marks, category } = item;
 
   const handleDelete = (_id) => {
@@ -20,7 +23,7 @@ const ItemsCard = ({ item, items, setItems }) => {
         cancelButtonText: "Cancel",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/login");
+          navigate("/login", { state: { from: location } });
         }
       });
     } else if (user.email === item.userEmail) {
@@ -35,13 +38,12 @@ const ItemsCard = ({ item, items, setItems }) => {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          fetch(`https://b9a11server-site.vercel.app/items/${_id}`, {
-            method: "DELETE",
-          })
-            .then((res) => res.json())
+          axiosSecure
+            .delete(`/items/${_id}`)
+
             .then((data) => {
               console.log(data);
-              if (data.deletedCount > 0) {
+              if (data.data.deletedCount > 0) {
                 Swal.fire({
                   title: "Deleted!",
                   text: "Your item has been deleted.",
@@ -55,10 +57,17 @@ const ItemsCard = ({ item, items, setItems }) => {
       });
     } else {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "You don't have the permission to delete it!",
+        icon: "warning",
+
+        text: `You Can't delete ${item_title} !`,
       });
+    }
+  };
+  const handleViewUpdate = (action) => {
+    if (!user) {
+      handleLoginPrompt();
+    } else {
+      navigate(action);
     }
   };
 
@@ -70,9 +79,9 @@ const ItemsCard = ({ item, items, setItems }) => {
           className=" max-h-44 max-[450px]:max-h-full md:max-h-52 w-full  rounded-xl"
         />
       </div>
-      <div className="flex justify-between items-center w-full p-3">
+      <div className="md:flex justify-between items-center w-full p-3">
         <div className="">
-          <h2 className="card-title">Title: {item_title}</h2>
+          <h2 className="card-title">{item_title}</h2>
           <div className="">
             <p className="flex gap-1">
               Difficulty Level: <b>{category}</b>
@@ -82,10 +91,10 @@ const ItemsCard = ({ item, items, setItems }) => {
             </p>
           </div>
         </div>
-        <div className="card-actions justify-end">
-          <div className="join join-vertical  space-y-4">
+        <div className="card-actions  md:justify-end  max-[450px]:mt-4 ">
+          <div className="join md:join-vertical max-[450px]:flex  max-[450px]:gap-4  max-[450px]:justify-start  md:space-y-4">
             <Link to={`/viewitems/${_id}`}>
-              <button className=" text-white rounded-md w-full btn btn-info ">
+              <button className=" text-white md:w-full rounded-md btn btn-info ">
                 View
               </button>
             </Link>

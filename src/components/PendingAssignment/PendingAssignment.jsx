@@ -3,6 +3,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import axios from "axios";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const PendingAssignment = () => {
   const [arts, setArts] = useState([]);
@@ -31,6 +32,15 @@ const PendingAssignment = () => {
   }, [user]);
 
   let serial = 1;
+  const denyGiveMark = () => {
+    Swal.fire({
+      icon: "warning",
+
+      text: "You don't have the permission to give mark",
+
+      confirmButtonText: "OK",
+    });
+  };
 
   return (
     <div className=" lg:mx-10 mx-3">
@@ -61,12 +71,12 @@ const PendingAssignment = () => {
                 <table className="table table-striped table-hover border ">
                   <thead className=" font-semibold text-base md:text-xl lg:text-xl">
                     <tr>
-                      <th className="border ">Serial</th>
-                      <th className="border ">Examinee Name</th>
-                      <th className="border ">Title</th>
-                      <th className="border ">Assignment Marks</th>
-                      <th className="border ">Status</th>
-                      <th className="border "></th>
+                      <th className="border text-center ">Serial</th>
+                      <th className="border text-center ">Examinee Name</th>
+                      <th className="border text-center ">Title</th>
+                      <th className="border text-center ">Assignment Marks</th>
+                      <th className="border text-center ">Status</th>
+                      <th className="border text-center "></th>
                     </tr>
                   </thead>
                   <tbody className=" font-normal text-base md:text-lg lg:text-lg">
@@ -86,17 +96,32 @@ const PendingAssignment = () => {
                                 {art.totalMarks}
                               </td>
                               <td className="border">
-                                <button className="btn text-white bg-orange-400 rounded-3xl">
+                                <span
+                                  className={`px-4 py-2 text-white rounded-3xl ${
+                                    art.status === "completed"
+                                      ? "bg-green-500"
+                                      : "bg-orange-400"
+                                  }`}
+                                >
                                   {art.status}
-                                </button>
+                                </span>
                               </td>
                               <td className="border">
-                                {user && user.email === art.email && (
+                                {user && user.email === art.email ? (
                                   <Link to={`/givemark/${art._id}`}>
                                     <button className="btn text-white bg-indigo-400 rounded-3xl">
                                       Give mark
                                     </button>
                                   </Link>
+                                ) : (
+                                  <button
+                                    onClick={() => {
+                                      denyGiveMark();
+                                    }}
+                                    className="btn text-white bg-indigo-400 rounded-3xl"
+                                  >
+                                    Give mark
+                                  </button>
                                 )}
                               </td>
                             </tr>

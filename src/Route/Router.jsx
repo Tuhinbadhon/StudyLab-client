@@ -16,6 +16,11 @@ import MySubmitted from "../components/MySubmitted/MySubmitted";
 import ViewItems from "../components/Assignment/ViewItems";
 import UpdateItems from "../components/Assignment/UpdateItems";
 import GiveMark from "../components/PendingAssignment/GiveMark";
+import AdminRoute from "../Pages/PrivetRoutes/AdminRoute";
+import Dashboard from "../Layouts/Dashboard";
+import Cart from "../Pages/Dashboard/Cart/Cart";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -132,6 +137,65 @@ const router = createBrowserRouter([
             `https://b9a11server-site.vercel.app/attemptedItems/${params.id}`
           ),
       },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoutes>
+        <Dashboard></Dashboard>
+      </PrivateRoutes>
+    ),
+    children: [
+      // normal user routes
+      {
+        path: "cart",
+        element: <Cart></Cart>,
+      },
+      {
+        path: "payment",
+        element: <Payment></Payment>,
+      },
+      {
+        path: "paymentHistory",
+        element: <PaymentHistory></PaymentHistory>,
+      },
+
+      // admin only routes
+      // {
+      //   path: "addItems",
+      //   element: (
+      //     <AdminRoute>
+      //       <AddItems></AddItems>
+      //     </AdminRoute>
+      //   ),
+      // },
+      // {
+      //   path: "manageItems",
+      //   element: (
+      //     <AdminRoute>
+      //       <ManageItems></ManageItems>
+      //     </AdminRoute>
+      //   ),
+      // },
+      // {
+      //   path: "updateItem/:id",
+      //   element: (
+      //     <AdminRoute>
+      //       <UpdateItem></UpdateItem>
+      //     </AdminRoute>
+      //   ),
+      //   loader: ({ params }) =>
+      //     fetch(`http://localhost:5000/menu/${params.id}`),
+      // },
+      // {
+      //   path: "users",
+      //   element: (
+      //     <AdminRoute>
+      //       <AllUsers></AllUsers>
+      //     </AdminRoute>
+      //   ),
+      // },
     ],
   },
 ]);

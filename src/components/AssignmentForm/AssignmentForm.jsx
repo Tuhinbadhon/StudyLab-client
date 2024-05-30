@@ -5,21 +5,37 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../../Provider/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 
 const AssignmentForm = () => {
   const [dueDate, setDueDate] = useState(null); // State to store the selected due date
   const helmetContext = {};
+  const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const formatDateForDatabase = (dueDate) => {
     const dateObj = new Date(dueDate);
     const year = dateObj.getFullYear();
-    const month = dateObj.getMonth() + 1; // Month is zero-indexed
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = monthNames[dateObj.getMonth()];
     const day = dateObj.getDate();
 
-    return `${year}-${month < 10 ? "0" : ""}${month}-${
-      day < 10 ? "0" : ""
-    }${day}`;
+    return `${day < 10 ? "0" : ""}${day}-${month}-${year}`;
   };
 
   const handleAddItems = (event) => {
@@ -47,18 +63,17 @@ const AssignmentForm = () => {
     };
 
     // Send data to the server
-    axios
-      .post("https://b9a11server-site.vercel.app/items", newItem)
-      .then((data) => {
-        if (data.data.insertedId) {
-          Swal.fire({
-            title: "Success!",
-            text: "Item Added Successfully",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-        }
-      });
+    axiosSecure.post("/items", newItem).then((data) => {
+      if (data.data.insertedId) {
+        Swal.fire({
+          title: "Success!",
+          text: "Item Added Successfully",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        navigate("/assignment");
+      }
+    });
   };
 
   return (
@@ -176,6 +191,7 @@ const AssignmentForm = () => {
                   className="input input-bordered w-full"
                   dateFormat="dd/MM/yyyy"
                   placeholderText="Select due date"
+                  minDate={new Date()} // Disable today and past dates
                   required
                 />
               </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Login.css";
@@ -8,12 +8,32 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Swal from "sweetalert2";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
 
 const Login = () => {
   const [showPass, setShowpass] = useState(false);
   const helmetContext = {};
   const location = useLocation();
-  const from = location.state || "/";
+  const from = location.state?.from?.pathname || "/";
+  // const captchaRef = useRef(null);
+  const [disabled, setDisabled] = useState(true);
+
+  // captcha
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+  const handleValidateCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
+    if (validateCaptcha(user_captcha_value)) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
 
   const { signInUser, signInWithGoogle, signInWithGithub } =
     useContext(AuthContext);
@@ -22,8 +42,9 @@ const Login = () => {
   // email login
   const loginFormHandler = (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
 
     signInUser(email, password)
       .then((result) => {
@@ -39,7 +60,7 @@ const Login = () => {
       })
       .catch((error) => {
         Swal.fire({
-          text: error.message,
+          text: "Invalid Username/Password",
           icon: "error",
         });
       });
@@ -90,7 +111,7 @@ const Login = () => {
         </Helmet>
       </HelmetProvider>
 
-      <div className="mx-auto w-full max-w-md p-4 rounded-md shadow sm:p-8 dark:bg-gray-50 dark:text-gray-800">
+      <div className="mx-auto w-full max-w-md p-4 rounded-md shadow sm:p-8 bg-gradient-to-r from-pink-200 via-gray-100 to-green-200">
         <h2 className="mb-3 text-3xl font-semibold text-center text-gradient2">
           Login to your account
         </h2>
@@ -193,8 +214,24 @@ const Login = () => {
                 </span>
               </div>
             </div>
+            <div className="space-y-2">
+              <label className="label ">
+                <LoadCanvasTemplate />
+              </label>
+              <input
+                onBlur={handleValidateCaptcha}
+                type="text"
+                name="captcha"
+                placeholder="Type the captcha here "
+                className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
+                required
+              />
+            </div>
           </div>
-          <button className="btn w-full btn-secondary px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50">
+          <button
+            disabled={disabled}
+            className="btn w-full  px-8 py-3 font-semibold rounded-md dark:bg-indigo-500 hover:bg-indigo-700 dark:text-gray-50"
+          >
             Log in
           </button>
         </form>

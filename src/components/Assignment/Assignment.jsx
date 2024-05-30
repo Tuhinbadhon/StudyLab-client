@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
 import ItemsCard from "./ItemsCard";
+import { DNA, Hourglass, RotatingLines, Watch } from "react-loader-spinner";
 
 const Assignment = () => {
   const [items, setItems] = useState([]);
@@ -12,6 +13,7 @@ const Assignment = () => {
   const [filter, setFilter] = useState("all");
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch("https://b9a11server-site.vercel.app/items")
@@ -53,6 +55,23 @@ const Assignment = () => {
   };
 
   const helmetContext = {};
+
+  if (loading)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <RotatingLines
+          visible={true}
+          height="80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="radio-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className="mb-10">

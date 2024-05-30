@@ -227,6 +227,14 @@ const Navbar = () => {
                         My Submit
                       </Link>
                     </li>
+                    <li>
+                      <Link
+                        to="/dashboard/cart"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Dashboard
+                      </Link>
+                    </li>
                     <li className="mt-2">
                       <button
                         className="bg-gray-200 block text-center "

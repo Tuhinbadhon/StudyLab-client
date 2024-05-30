@@ -4,13 +4,14 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const UpdateItems = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const items = useLoaderData();
+  const axiosSecure = useAxiosSecure();
   const {
     _id,
     image,
@@ -26,6 +27,29 @@ const UpdateItems = () => {
 
   const [dueDate, setDueDate] = useState(new Date(initialDueDate));
 
+  const formatDateForDatabase = (dueDate) => {
+    const dateObj = new Date(dueDate);
+    const year = dateObj.getFullYear();
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = monthNames[dateObj.getMonth()];
+    const day = dateObj.getDate();
+
+    return `${day < 10 ? "0" : ""}${day}-${month}-${year}`;
+  };
+
   const handleUpdateItems = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -38,8 +62,7 @@ const UpdateItems = () => {
     const userEmail = user.email;
     const userImg = user.photoURL;
 
-    // Format dueDate to send only date without time
-    const formattedDueDate = dueDate.toISOString().split("T")[0];
+    const formattedDueDate = formatDateForDatabase(dueDate);
 
     const updatedItem = {
       image,
@@ -53,8 +76,8 @@ const UpdateItems = () => {
       userImg,
     };
 
-    axios
-      .put(`https://b9a11server-site.vercel.app/items/${_id}`, updatedItem)
+    axiosSecure
+      .put(`/items/${_id}`, updatedItem)
       .then((response) => {
         if (response.data.modifiedCount > 0) {
           Swal.fire({
@@ -63,7 +86,6 @@ const UpdateItems = () => {
             icon: "success",
             confirmButtonText: "OK",
           }).then(() => {
-            // Redirect to assignments page
             navigate("/assignment");
           });
         }
@@ -87,7 +109,7 @@ const UpdateItems = () => {
           <title>Update Items</title>
         </Helmet>
       </HelmetProvider>
-      <h2 className="font-bold text-3xl text-center mb-4">update here</h2>
+      <h2 className="font-bold text-3xl text-center mb-4">Update Item</h2>
       <form
         data-aos="fade-up"
         data-aos-duration="1000"
@@ -96,7 +118,7 @@ const UpdateItems = () => {
         <div className="md:flex md:mb-6">
           <div className="form-control md:w-full">
             <label className="label">
-              <span className="label-text"> Image URL</span>
+              <span className="label-text">Image URL</span>
             </label>
             <label className="input-group">
               <input
@@ -104,7 +126,6 @@ const UpdateItems = () => {
                 placeholder="https://www..."
                 className="input input-bordered w-full"
                 name="image"
-                id=""
                 defaultValue={image}
                 required
               />
@@ -122,7 +143,6 @@ const UpdateItems = () => {
                 placeholder="Title"
                 className="input input-bordered w-full"
                 name="item_title"
-                id=""
                 defaultValue={item_title}
                 required
               />
@@ -130,10 +150,15 @@ const UpdateItems = () => {
           </div>
           <div className="form-control md:w-1/2 md:ml-4">
             <label className="label">
-              <span className="label-text"> Category</span>
+              <span className="label-text">Category</span>
             </label>
             <label className="input-group">
-              <select name="category" className="input input-bordered" required>
+              <select
+                name="category"
+                defaultValue={category}
+                className="input input-bordered"
+                required
+              >
                 <option value="Easy">Easy</option>
                 <option value="Medium">Medium</option>
                 <option value="Hard">Hard</option>
@@ -152,7 +177,6 @@ const UpdateItems = () => {
                 placeholder="Description"
                 className="textarea textarea-bordered w-full"
                 name="description"
-                id=""
                 defaultValue={description}
                 required
               />
@@ -160,7 +184,7 @@ const UpdateItems = () => {
           </div>
           <div className="form-control md:w-1/2 md:ml-4">
             <label className="label">
-              <span className="label-text"> Marks</span>
+              <span className="label-text">Marks</span>
             </label>
             <label className="input-group">
               <input
@@ -168,7 +192,6 @@ const UpdateItems = () => {
                 placeholder="Marks"
                 className="input input-bordered w-full"
                 name="marks"
-                id=""
                 defaultValue={marks}
                 required
               />
@@ -185,8 +208,9 @@ const UpdateItems = () => {
                 selected={dueDate}
                 onChange={(date) => setDueDate(date)}
                 className="input input-bordered w-full"
-                dateFormat="dd/MM/yyyy"
+                dateFormat="dd-MMM-yyyy"
                 placeholderText="Select due date"
+                minDate={new Date()} // Disable past dates
                 required
               />
             </div>
@@ -196,7 +220,7 @@ const UpdateItems = () => {
         <input
           type="submit"
           value="UPDATE"
-          className="btn btn-block bg-gray-600 max-[450px]:mt-5 text-white hover:bg-green-600 "
+          className="btn btn-block bg-gray-600 max-[450px]:mt-5 text-white hover:bg-green-600"
         />
       </form>
     </div>
