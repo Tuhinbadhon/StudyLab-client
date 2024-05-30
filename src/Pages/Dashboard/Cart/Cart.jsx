@@ -1,91 +1,108 @@
 import { FaTrashAlt } from "react-icons/fa";
-import useCart from "../../../hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import axios from "axios";
+import { RotatingLines } from "react-loader-spinner";
 
 const Cart = () => {
   const { user } = useContext(AuthContext);
-  const [cart, refetch] = useCart();
+  const [loading, setLoading] = useState(true);
+  const [assignments, setAssignments] = useState([]);
+  const [error, setError] = useState(null);
   const axiosSecure = useAxiosSecure();
 
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.delete(`/attemptedItems/${id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
-            refetch();
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      try {
+        const response = await axios.get(
+          "https://b9a11server-site.vercel.app/attemptedItems",
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`, // Assuming you're using token-based auth
+            },
           }
-        });
+        );
+        setAssignments(response.data);
+      } catch (error) {
+        console.error("Error fetching assignments:", error);
+        setError(error);
+      } finally {
+        setLoading(false); // Set loading state to false after fetch completes
       }
-    });
-  };
+    };
+
+    if (user) {
+      fetchAssignments();
+    }
+  }, [user]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <RotatingLines
+          visible={true}
+          height="80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  // Filter assignments for the current user
+  const userAssignments = assignments.filter(
+    (assignment) => assignment.userEmail === user.email
+  );
 
   return (
     <div>
       <div className="flex justify-evenly mb-8">
-        <h2 className="text-4xl">Items: {cart.length}</h2>
-        <h2 className="text-4xl">Total Price: </h2>
-        {cart.length ? (
-          <Link to="/dashboard/payment">
-            <button className="btn btn-primary">Pay</button>
-          </Link>
-        ) : (
-          <button disabled className="btn btn-primary">
-            Pay
-          </button>
-        )}
+        {/* <h2 className="text-4xl">Items: {userAssignments.length}</h2> */}
       </div>
       <div className="overflow-x-auto">
         <table className="table  w-full">
           {/* head */}
           <thead>
-            <tr>
+            <tr className="text-center">
               <th>#</th>
-
               <th>Title</th>
               <th>Assignment Marks</th>
               <th>Obtain Marks</th>
+              <th>Feedback</th>
               <th>Status</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {cart.map((item, index) =>
-              item.userEmail === user.email ? (
-                <tr key={item._id}>
-                  <th>{index + 1}</th>
-
-                  <td>{item.title}</td>
-                  <td>{item.totalMarks}</td>
-                  <td>{item.obtainMarks}</td>
-                  <td>{item.status}</td>
-                  <th>
-                    <button
-                      onClick={() => handleDelete(item._id)}
-                      className="btn btn-ghost btn-lg"
-                    >
-                      <FaTrashAlt className="text-red-600"></FaTrashAlt>
-                    </button>
-                  </th>
-                </tr>
-              ) : null
-            )}
+            {userAssignments.map((assignment, index) => (
+              <tr key={assignment._id} className="text-center">
+                <th>{index + 1}</th>
+                <td>{assignment.title}</td>
+                <td>{assignment.totalMarks}</td>
+                <td>{assignment.obtainMarks}</td>
+                <td>{assignment.feedback}</td>
+                <td>
+                  <span
+                    className={` font-extrabold  ${
+                      assignment.status === "completed"
+                        ? "text-green-500"
+                        : "text-orange-400"
+                    }`}
+                  >
+                    {assignment.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -5,20 +5,29 @@ import {
   FaEnvelope,
   FaHome,
   FaList,
+  FaPaypal,
   FaSearch,
   FaShoppingCart,
   FaUsers,
   FaUtensils,
+  FaWallet,
 } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
-  const [cart] = useCart();
+  const [cart, refetch, isLoading, error] = useCart();
 
   // TODO: get isAdmin value from the database
   const [isAdmin] = useAdmin();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="flex">
@@ -67,21 +76,21 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/history">
+                <NavLink to="/">
                   <FaCalendar></FaCalendar>
-                  Not History
+                  My Assignment
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/cart">
                   <FaShoppingCart></FaShoppingCart>
-                  My Cart ({cart.length})
+                  My Submission ({cart.length})
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/review">
-                  <FaAd></FaAd>
-                  Add a Review
+                <NavLink to="/dashboard/payment">
+                  <FaPaypal />
+                  Payment
                 </NavLink>
               </li>
               <li>

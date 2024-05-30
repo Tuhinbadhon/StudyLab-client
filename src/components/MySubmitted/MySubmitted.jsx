@@ -22,7 +22,10 @@ const MySubmitted = () => {
             },
           }
         );
-        setAssignments(response.data);
+        const userAssignments = response.data.filter(
+          (assignment) => assignment.userEmail === user.email
+        );
+        setAssignments(userAssignments);
       } catch (error) {
         console.error("Error fetching assignments:", error);
         setError(error);
@@ -63,43 +66,47 @@ const MySubmitted = () => {
           <title>STUDYLAB | My Assignments</title>
         </Helmet>
       </HelmetProvider>
+      <div className="mx-auto text-center mb-5">
+        <span className="text-xl mb-3 lg:font-semibold">
+          Submitted Assignments:
+        </span>{" "}
+        <b>{assignments.length}</b>
+      </div>
 
       <div className="flex flex-col gap-5">
-        {assignments.map((assignment) =>
-          assignment.userEmail === user.email ? (
-            <div
-              key={assignment._id}
-              className="bg-white border shadow-md rounded-lg p-4"
-            >
-              <div>
-                <h3 className="text-xl mb-3 lg:font-semibold">
-                  Title: {assignment.title}
-                </h3>
-                <p>
-                  <b>Status:</b>{" "}
-                  <span
-                    className={` font-extrabold text-lg ${
-                      assignment.status === "completed"
-                        ? "text-green-500"
-                        : "text-orange-400"
-                    }`}
-                  >
-                    {assignment.status}
-                  </span>
-                </p>
-                <p>
-                  <b>Assignment Marks:</b> {assignment.totalMarks}
-                </p>
-                <p>
-                  <b>Obtained Marks:</b> {assignment.obtainMarks}
-                </p>
-                <p>
-                  <b>Feedback:</b> {assignment.feedback}
-                </p>
-              </div>
+        {assignments.map((assignment) => (
+          <div
+            key={assignment._id}
+            className="bg-white border shadow-md rounded-lg p-4"
+          >
+            <div>
+              <h3 className="text-xl mb-3 lg:font-semibold">
+                Title: {assignment.title}
+              </h3>
+              <p>
+                <b>Status:</b>{" "}
+                <span
+                  className={` font-extrabold text-lg ${
+                    assignment.status === "completed"
+                      ? "text-green-500"
+                      : "text-orange-400"
+                  }`}
+                >
+                  {assignment.status}
+                </span>
+              </p>
+              <p>
+                <b>Assignment Marks:</b> {assignment.totalMarks}
+              </p>
+              <p>
+                <b>Obtained Marks:</b> {assignment.obtainMarks}
+              </p>
+              <p>
+                <b>Feedback:</b> {assignment.feedback}
+              </p>
             </div>
-          ) : null
-        )}
+          </div>
+        ))}
       </div>
     </div>
   );
