@@ -16,7 +16,7 @@ const Assignment = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://b9a11server-site.vercel.app/items")
+    fetch("https://studylab-ass11.vercel.app/items")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

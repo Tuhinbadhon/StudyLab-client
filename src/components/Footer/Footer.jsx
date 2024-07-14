@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="dark:bg-fuchsia-50 dark:text-gray-800 md:py-16 py-7 lg:py-20">
+    <div className="  bg-base-200 md:py-10 py-7 ">
       {/* className="" */}
       <footer
         className="  to-transparent 
@@ -77,7 +77,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <div className="font-semibold  text-center mt-7  ">
+      <div className="font-semibold max-[450px]:mx-6  text-center mt-7  ">
         <p>
           Copyright © 2024 - All right reserved by{" "}
           <Link

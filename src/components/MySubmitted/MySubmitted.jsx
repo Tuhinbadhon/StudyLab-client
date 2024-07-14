@@ -15,7 +15,7 @@ const MySubmitted = () => {
     const fetchAssignments = async () => {
       try {
         const response = await axios.get(
-          "https://b9a11server-site.vercel.app/attemptedItems",
+          "https://studylab-ass11.vercel.app/attemptedItems",
           {
             headers: {
               Authorization: `Bearer ${user.token}`, // Assuming you're using token-based auth

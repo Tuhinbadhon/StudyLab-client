@@ -7,7 +7,7 @@ import "animate.css";
 import { Link } from "react-router-dom";
 const MeetAgents = () => {
   return (
-    <div className="h-full  " data-aos="fade-up" data-aos-duration="1000">
+    <div className="  " data-aos="fade-up" data-aos-duration="1000">
       {/* paragraph section */}
       <div className="text-center  max-w-screen-sm mx-auto px-2 lg:px-0 mb-6">
         <h1
@@ -29,9 +29,9 @@ const MeetAgents = () => {
       </div>
 
       {/* card section  */}
-      <div className="flex flex-wrap justify-center items-center gap-4 lg:gap-10 md:p-4">
+      <div className="md:flex max-[450px]:mx-5 justify-center items-center gap-4 lg:gap-12 md:p-4">
         {/* agent 1 */}
-        <div className="  hover:scale-110 ease-in duration-300  flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl  dark:bg-gray-50 dark:text-gray-800">
+        <div className="  hover:scale-110 ease-in duration-300  flex flex-col justify-center  p-6 shadow-md rounded-xl  dark:bg-gray-50 dark:text-gray-800">
           <img
             src="https://i.ibb.co/xjsyCLx/leo.webp"
             alt=""
@@ -90,7 +90,7 @@ const MeetAgents = () => {
         </div>
 
         {/* agent 2 */}
-        <div className="hover:scale-110 ease-in duration-300 flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-50 dark:text-gray-800">
+        <div className=" max-[450px]:mt-5 hover:scale-110 ease-in duration-300 flex flex-col justify-center  p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-50 dark:text-gray-800">
           <img
             src="https://i.ibb.co/0yqCgPh/kate.jpg"
             alt=""
@@ -148,7 +148,7 @@ const MeetAgents = () => {
         </div>
 
         {/* agent 3 */}
-        <div className="hover:scale-110 ease-in duration-300 flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-50 dark:text-gray-800">
+        <div className="max-[450px]:mt-5 hover:scale-110 ease-in duration-300 flex flex-col justify-center  p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-50 dark:text-gray-800">
           <img
             src="https://i.ibb.co/FKXPvRS/image11.jpg"
             alt=""

@@ -55,7 +55,7 @@ const AuthProvider = ({ children }) => {
       //if user exist then issue a token
       if (currentUser) {
         axios
-          .post("https://b9a11server-site.vercel.app/jwt", loggedUser, {
+          .post("https://studylab-ass11.vercel.app/jwt", loggedUser, {
             withCredentials: true,
           })
           .then((res) => {
@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
           });
       } else {
         axios
-          .post("https://b9a11server-site.vercel.app/logout", loggedUser, {
+          .post("https://studylab-ass11.vercel.app/logout", loggedUser, {
             withCredentials: true,
           })
           .then((res) => {

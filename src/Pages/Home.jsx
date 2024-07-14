@@ -14,9 +14,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://server-side-puce-alpha.vercel.app/items"
-        );
+        const response = await fetch("https://studylab-ass11.vercel.app/items");
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -62,7 +60,7 @@ const Home = () => {
         <Features />
       </div>
 
-      <div className="mt-5 mb-10 lg:mt-10 lg:mx-20">
+      <div className="mt-5 mb-10 lg:mt-10 ">
         <MeetAgents />
       </div>
       <div className="mt-5 mb-10 lg:mt-10  lg:mx-20">

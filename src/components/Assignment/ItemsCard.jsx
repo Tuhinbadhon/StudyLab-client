@@ -63,13 +63,6 @@ const ItemsCard = ({ item, items, setItems }) => {
       });
     }
   };
-  const handleViewUpdate = (action) => {
-    if (!user) {
-      handleLoginPrompt();
-    } else {
-      navigate(action);
-    }
-  };
 
   return (
     <div className="max-[450px]:mx-5 lg:flex  justify-center items-center bg-base-100 rounded-lg border">
@@ -94,7 +87,10 @@ const ItemsCard = ({ item, items, setItems }) => {
         <div className="card-actions  md:justify-end  max-[450px]:mt-4 ">
           <div className="join md:join-vertical max-[450px]:flex  max-[450px]:gap-4  max-[450px]:justify-start  md:space-y-4">
             <Link to={`/viewitems/${_id}`}>
-              <button className=" text-white md:w-full rounded-md btn btn-info ">
+              <button
+                onClick={() => handleView(_id)}
+                className=" text-white md:w-full rounded-md btn btn-info "
+              >
                 View
               </button>
             </Link>

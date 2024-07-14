@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import lottie from "lottie-web";
 import { defineElement } from "@lordicon/element";
 import { ToastContainer } from "react-toastify";
+
+import { IoCloseSharp } from "react-icons/io5";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { LuLogIn, LuLogOut } from "react-icons/lu";
+import { LuAlignJustify, LuLogIn, LuLogOut } from "react-icons/lu";
 import { MdAppRegistration } from "react-icons/md";
 
 defineElement(lottie.loadAnimation);
@@ -15,13 +17,18 @@ const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [theme, setTheme] = useState("light");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
   useEffect(() => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
     document.querySelector("html").setAttribute("data-theme", localTheme);
   }, [theme]);
 
-  const handleToogle = (e) => {
+  const handleToggle = (e) => {
     if (e.target.checked) {
       setTheme("dark");
     } else {
@@ -31,19 +38,31 @@ const Navbar = () => {
 
   const navlink = (
     <>
-      <li className="">
-        <Link to="/" onClick={() => setIsDropdownOpen(false)}>
-          Home
-        </Link>
-      </li>
+      {!user && (
+        <>
+          <li>
+            <Link to="/" onClick={() => setIsDropdownOpen(false)}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/assignment" onClick={() => setIsDropdownOpen(false)}>
+              Assignments
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/login"
+              className="md:hidden"
+              onClick={() => setIsDropdownOpen(false)}
+            >
+              Login / Register
+            </Link>
+          </li>
+        </>
+      )}
 
-      <li>
-        <Link to="/assignment" onClick={() => setIsDropdownOpen(false)}>
-          Assignments
-        </Link>
-      </li>
-
-      {user ? (
+      {user && (
         <>
           <li>
             <Link
@@ -58,15 +77,12 @@ const Navbar = () => {
               Pending Assignments
             </Link>
           </li>
-
           <li>
             <Link to="/profile" onClick={() => setIsDropdownOpen(false)}>
               View Profile
             </Link>
           </li>
         </>
-      ) : (
-        ""
       )}
     </>
   );
@@ -88,7 +104,7 @@ const Navbar = () => {
     signOutUser()
       .then(() => {
         Swal.fire({
-          text: "Successfully logout",
+          text: "Successfully logged out",
           icon: "success",
         });
       })
@@ -107,72 +123,70 @@ const Navbar = () => {
   return (
     <div>
       <ToastContainer />
-      <div className="navbar bg-base-100">
+      <div className="navbar px-5 bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
+            <button
+              className="lg:hidden p-4 focus:outline-none"
+              onClick={toggleSidebar}
+            >
+              <LuAlignJustify className="text-xl" />
+            </button>
+            {/* Sidebar for small screens */}
             <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost pl-4 lg:hidden"
-              onClick={toggleDropdown}
+              className={`fixed inset-0 z-40 flex ${
+                isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+              } transform transition-transform duration-700 ease-in-out lg:hidden`}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
+              <div className="w-64 max-[450px]:h-svh min-h-screen font-semibold bg-[#515e68]  text-white flex flex-col">
+                <div className="flex p-6 items-center justify-between">
+                  <h2 className=" text-xl uppercase  ">StudyLab</h2>
+                  <button
+                    className=" focus:outline-none  "
+                    onClick={(e) => {
+                      e.stopPropagation(); // Stop propagation to prevent sidebar from closing
+                      toggleSidebar();
+                    }}
+                  >
+                    <IoCloseSharp className="text-3xl" />
+                  </button>
+                </div>
+                <ul className="menu p-2 mt-2 z-[10]">{navlink}</ul>
+                {/* <div className="flex-grow"></div>
+              <div className="mt-auto font-semibold p-4">
+                <p className="text-sm">
+                  Copyright © {currentYear} - All right reserved by storks Ltd
+                </p>
+              </div> */}
+              </div>
+              <div
+                className="fixed inset-0 bg-black opacity-50"
+                onClick={toggleSidebar}
+              ></div>
             </div>
-            {isDropdownOpen && (
-              <ul
-                tabIndex={0}
-                className="menu  menu-sm dropdown-content mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-52 font-semibold "
-              >
-                {navlink}
-              </ul>
-            )}
           </div>
-          <div className="flex items-center w-auto">
-            <Link to="/">
-              {" "}
-              <img
-                className="lg:w-16 lg:h-16 md:w-12 md:h-12 w-10 h-10 "
-                src="/logo.png"
-                alt=""
-              />{" "}
-            </Link>
-            <Link
-              to="/"
-              className="btn max-[450px]:hidden  btn-ghost lg:text-3xl md:text-2xl font-bold max-[450px]:text-xl bg-gradient-to-r from-green-500 to-[#59C6D2] text-transparent bg-clip-text p-0"
-            >
+          <Link to="/" className="flex items-center">
+            <img
+              className="lg:w-16 lg:h-16 md:w-12 md:h-12 w-10 h-10"
+              src="/logo.png"
+              alt="logo"
+            />
+            <span className="btn  btn-ghost lg:text-3xl md:text-2xl font-bold max-[450px]:text-xl bg-gradient-to-r from-green-500 to-[#59C6D2] text-transparent bg-clip-text p-0">
               STUDY LAB
-            </Link>
-          </div>
+            </span>
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 font-semibold  ">
-            {navlink}
-          </ul>
+          <ul className="menu menu-horizontal px-1 font-semibold">{navlink}</ul>
         </div>
         <div className="navbar-end flex gap-2">
           <label className="swap swap-rotate">
-            {/* this hidden checkbox controls the state */}
             <input
               type="checkbox"
               className="theme-controller"
               value="dark"
-              onChange={handleToogle}
+              onChange={handleToggle}
             />
-
-            {/* sun icon */}
             <svg
               className="swap-off fill-current w-7 h-7"
               xmlns="http://www.w3.org/2000/svg"
@@ -180,8 +194,6 @@ const Navbar = () => {
             >
               <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
             </svg>
-
-            {/* moon icon */}
             <svg
               className="swap-on fill-current w-7 h-7"
               xmlns="http://www.w3.org/2000/svg"
@@ -227,14 +239,14 @@ const Navbar = () => {
                         My Submit
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link
                         to="/dashboard/cart"
                         onClick={() => setIsDropdownOpen(false)}
                       >
                         Dashboard
                       </Link>
-                    </li>
+                    </li> */}
                     <li className="mt-2">
                       <button
                         className="bg-gray-200 block text-center "
@@ -248,26 +260,20 @@ const Navbar = () => {
               </div>
             </>
           ) : (
-            <>
-              <div className="btn btn-ghost btn-circle avatar">
-                {/* Display lordicon if the user is not logged in */}
-                {!user}
-              </div>
-              <Link to="/login">
-                <button className="btn max-[450px]:py-1 max-[450px]:px-2 ">
-                  {" "}
-                  <LuLogIn className="max-[450px]:hidden" />
-                  Login
-                </button>
+            <div className="max-[450px]:hidden">
+              <Link
+                to="/login"
+                className="btn ml-5 md:btn-sm lg:btn-md bg-gradient-to-r from-green-500 to-[#59C6D2] text-white gap-2"
+              >
+                Login <LuLogIn />
               </Link>
-              <Link to="/registration">
-                <button className="btn max-[450px]:py-1 max-[450px]:px-2 ">
-                  {" "}
-                  <MdAppRegistration className="max-[450px]:hidden" />
-                  Register
-                </button>
+              <Link
+                to="/register"
+                className="btn ml-3 md:btn-sm lg:btn-md bg-gradient-to-r from-green-500 to-[#59C6D2] text-white gap-2"
+              >
+                Register <MdAppRegistration />
               </Link>
-            </>
+            </div>
           )}
         </div>
       </div>

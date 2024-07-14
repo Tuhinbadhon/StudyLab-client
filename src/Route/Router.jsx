@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       {
         path: "/assignment",
         element: <Assignment />,
-        loader: () => fetch("https://b9a11server-site.vercel.app/items"),
+        loader: () => fetch("https://studylab-ass11.vercel.app/items"),
       },
       {
         path: "/registration",
@@ -113,7 +113,7 @@ const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`https://b9a11server-site.vercel.app/items/${params.id}`),
+          fetch(`https://studylab-ass11.vercel.app/items/${params.id}`),
       },
       {
         path: "/updateitems/:id",
@@ -123,7 +123,7 @@ const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`https://b9a11server-site.vercel.app/items/${params.id}`),
+          fetch(`https://studylab-ass11.vercel.app/items/${params.id}`),
       },
       {
         path: "/givemark/:id",
@@ -134,7 +134,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://b9a11server-site.vercel.app/attemptedItems/${params.id}`
+            `https://studylab-ass11.vercel.app/attemptedItems/${params.id}`
           ),
       },
     ],

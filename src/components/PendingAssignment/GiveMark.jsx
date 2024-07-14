@@ -39,7 +39,7 @@ const GiveMark = () => {
     };
     axios
       .put(
-        `https://b9a11server-site.vercel.app/attemptedItems/${_id}`,
+        `https://studylab-ass11.vercel.app/attemptedItems/${_id}`,
         updatedItem
       )
       .then((response) => {
