@@ -3,13 +3,9 @@ import React from "react";
 const FAQ = () => {
   return (
     <div>
-      <section className="  ">
+      <section data-aos="fade-up" data-aos-duration="1000" className="  ">
         <div className="container flex flex-col items-center p-4 mx-auto md:p-8">
-          <h1
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            className="text-lg font-medium mb-10 lg:text-3xl lg:font-bold text-center"
-          >
+          <h1 className="text-lg font-medium mb-10 lg:text-3xl lg:font-bold text-center">
             Frequently Asked Questions
           </h1>
           <div className="collapse  collapse-arrow mb-2 bg-base-200">

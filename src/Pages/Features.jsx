@@ -56,7 +56,7 @@ const Features = () => {
           enhancing their understanding of various subjects.
         </p>
       </div>
-      <div>
+      <div data-aos="fade-up" data-aos-duration="1500">
         {loading ? (
           <div className="flex items-center justify-center h-screen">
             <span className="loading loading-ring loading-xs"></span>

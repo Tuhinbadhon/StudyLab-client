@@ -79,7 +79,7 @@ const Footer = () => {
       </footer>
       <div className="font-semibold max-[450px]:mx-6  text-center mt-7  ">
         <p>
-          Copyright © 2024 - All right reserved by{" "}
+          Copyright © 2024 - All right reserved by <br />
           <Link
             to="/"
             className=" lg:text-lg font-bold max-[450px]:text-xl bg-gradient-to-r from-green-500 to-[#59C6D2] text-transparent bg-clip-text"

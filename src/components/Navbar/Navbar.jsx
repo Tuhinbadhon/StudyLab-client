@@ -40,17 +40,17 @@ const Navbar = () => {
     <>
       {!user && (
         <>
-          <li>
+          <li className="border-b lg:border-hidden rounded-md pb-1 mt-2">
             <Link to="/" onClick={() => setIsDropdownOpen(false)}>
               Home
             </Link>
           </li>
-          <li>
+          <li className="border-b  lg:border-hidden rounded-md pb-1 mt-2 ">
             <Link to="/assignment" onClick={() => setIsDropdownOpen(false)}>
               Assignments
             </Link>
           </li>
-          <li>
+          <li className="border-b  md:border-hidden rounded-md pb-1 mt-2 ">
             <Link
               to="/login"
               className="md:hidden"
@@ -64,7 +64,12 @@ const Navbar = () => {
 
       {user && (
         <>
-          <li>
+          <li className="border-b  lg:border-hidden rounded-md pb-1 mt-2 ">
+            <Link to="/" onClick={() => setIsDropdownOpen(false)}>
+              Home
+            </Link>
+          </li>
+          <li className="border-b  lg:border-hidden rounded-md pb-1 mt-2 ">
             <Link
               to="/createassignment"
               onClick={() => setIsDropdownOpen(false)}
@@ -72,12 +77,12 @@ const Navbar = () => {
               Create Assignments
             </Link>
           </li>
-          <li>
+          <li className="border-b  lg:border-hidden rounded-md pb-1 mt-2 ">
             <Link to="/pending" onClick={() => setIsDropdownOpen(false)}>
               Pending Assignments
             </Link>
           </li>
-          <li>
+          <li className="border-b  lg:border-hidden rounded-md pb-1 mt-2 ">
             <Link to="/profile" onClick={() => setIsDropdownOpen(false)}>
               View Profile
             </Link>
@@ -142,16 +147,16 @@ const Navbar = () => {
                 <div className="flex p-6 items-center justify-between">
                   <h2 className=" text-xl uppercase  ">StudyLab</h2>
                   <button
-                    className=" focus:outline-none  "
+                    className=" focus:outline-none bg-gray-600 rounded-md p-[6px] "
                     onClick={(e) => {
                       e.stopPropagation(); // Stop propagation to prevent sidebar from closing
                       toggleSidebar();
                     }}
                   >
-                    <IoCloseSharp className="text-3xl" />
+                    <IoCloseSharp className="text-xl" />
                   </button>
                 </div>
-                <ul className="menu p-2 mt-2 z-[10]">{navlink}</ul>
+                <ul className="menu mr-5 pt-7 mt-2   z-[10]">{navlink}</ul>
                 {/* <div className="flex-grow"></div>
               <div className="mt-auto font-semibold p-4">
                 <p className="text-sm">
@@ -177,7 +182,9 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 font-semibold">{navlink}</ul>
+          <ul className="menu menu-horizontal px-1  font-semibold">
+            {navlink}
+          </ul>
         </div>
         <div className="navbar-end flex gap-2">
           <label className="swap swap-rotate">
@@ -268,7 +275,7 @@ const Navbar = () => {
                 Login <LuLogIn />
               </Link>
               <Link
-                to="/register"
+                to="/registration"
                 className="btn ml-3 md:btn-sm lg:btn-md bg-gradient-to-r from-green-500 to-[#59C6D2] text-white gap-2"
               >
                 Register <MdAppRegistration />
