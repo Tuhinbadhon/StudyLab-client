@@ -70,6 +70,11 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="border-b  lg:border-hidden rounded-md pb-1 mt-2 ">
+            <Link to="/assignment" onClick={() => setIsDropdownOpen(false)}>
+              Assignments
+            </Link>
+          </li>
+          <li className="border-b  lg:border-hidden rounded-md pb-1 mt-2 ">
             <Link
               to="/createassignment"
               onClick={() => setIsDropdownOpen(false)}
